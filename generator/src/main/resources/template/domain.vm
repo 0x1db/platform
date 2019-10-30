@@ -1,0 +1,21 @@
+package ${packageName}.${lowClassName}.domain;
+
+#foreach($ims in $importSets)
+${ims}
+#end
+
+import com.platform.core.entity.DataEntity;
+import java.io.Serializable;
+
+${classTitle}
+public class ${upClassName} extends BaseEntity<${upClassName}> {
+    private static final long serialVersionUID = ${SerialVersionUID}L;
+
+#foreach($field in $fields)
+    ${field}
+#end
+#foreach($method in $methods)
+    ${method}
+#end
+
+}

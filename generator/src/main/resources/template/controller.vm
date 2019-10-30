@@ -1,0 +1,117 @@
+package ${packageName}.controller;
+
+import com.zhiyuan.core.entity.AjaxObject;
+import com.zhiyuan.core.entity.Page;
+import com.zhiyuan.core.web.controller.BaseController;
+import ${packageName}.domain.${upClassName};
+import ${packageName}.service.${upClassName}Service;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+
+${classTitle}
+@Controller
+@RequestMapping(value="/${lowClassName}")
+public class ${upClassName}Controller extends BaseController{
+
+    /** sl4j */
+	private Logger LOGGER = LoggerFactory.getLogger(${upClassName}Controller.class);
+	
+	@Autowired
+	private ${upClassName}Service ${lowClassName}Service;
+
+    /**
+     * 跳转到列表页面
+     *
+     * @param page
+     * @param model
+     * @return
+     */
+	@RequestMapping(value="/toList")
+    public String toList(Page<${upClassName}> page, Model model){
+        page = ${lowClassName}Service.findList(page);
+        model.addAttribute("page",page);
+        return "jsp/${lowClassName}/list";
+    }
+
+	/**
+     * 跳转到保存页面
+     *
+     * @param id
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/toSave")
+    public String toSave(Long id,Model model) {
+        ${upClassName} ${lowClassName} = ${lowClassName}Service.get(id);
+        model.addAttribute("${lowClassName}",${lowClassName});
+        return "jsp/${lowClassName}/save";
+    }
+
+	/**
+     * 跳转到详情页面
+     *
+     * @param id
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/toView")
+    public String toView(Long id,Model model) {
+        ${upClassName} ${lowClassName} = ${lowClassName}Service.get(id);
+        model.addAttribute("${lowClassName}",${lowClassName});
+        return "jsp/${lowClassName}/view";
+    }
+
+    /**
+     * 增加
+     *
+     * @param ${lowClassName}
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "save", method = RequestMethod.POST)
+    public String save(@Valid ${upClassName} ${lowClassName}) {
+        if(${lowClassName} != null){
+            ${lowClassName}Service.insert(${lowClassName});
+            LOGGER.info("增加${lowClassName}成功, ${lowClassName}=" + ${lowClassName});
+        }
+        return AjaxObject.newOk("保存成功").toString();
+    }
+
+    /**
+     * 修改
+     *
+     * @param ${lowClassName}
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    public String update(@Valid ${upClassName} ${lowClassName}) {
+        if(${lowClassName} != null){
+            ${lowClassName}Service.update(${lowClassName});
+            LOGGER.info("修改${lowClassName}成功, ${lowClassName}=" + ${lowClassName});
+        }
+        return AjaxObject.newOk("保存成功").toString();
+    }
+
+    /**
+     * 删除
+     *
+     * @param ids
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    public String delete(Long[] ids) {
+        int num = ${lowClassName}Service.batchDelete(ids);
+        LOGGER.info("删除成功,共删除" + num+"条");
+        return AjaxObject.newOk("成功删除"+num+"条数据").toString();
+    }
+
+}

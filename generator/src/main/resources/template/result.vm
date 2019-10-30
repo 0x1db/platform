@@ -1,0 +1,60 @@
+package ${packageName}.result;
+
+import org.apache.commons.lang.StringUtils;
+
+${classTitle}
+public enum ${upClassName}Result {
+
+#foreach($allUpCaseCol in $allUpCaseCols)
+    /** $remarkMap.get(${allUpCaseCol})为空 */
+    #set($coudeIndex = $velocityCount + 1000)
+${noPrefixTableName}_${allUpCaseCol}_NULL($coudeIndex, "${noPrefixTableName}_${allUpCaseCol}_NULL"),
+
+#end
+    /** 成功 */
+    SUCCESS(200, "SUCCESS"),
+
+    /** */
+    SYSTEM_ERROR(500, "SYSTEM_ERROR"),
+
+    ;
+
+    private int code;
+
+    private String type;
+
+    ${upClassName}Result(int code, String type) {
+        this.code = code;
+        this.type = type;
+    }
+
+    public static ${upClassName}Result getByType(String type) {
+        if (StringUtils.isBlank(type))
+            return null;
+
+        for (${upClassName}Result result : ${upClassName}Result.values()) {
+            if (StringUtils.equals(type, result.getType())) {
+                return result;
+            }
+        }
+
+        return null;
+    }
+
+    public String getType() {
+        return this.type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public int getCode() {
+        return this.code;
+    }
+
+    public void setType(int code) {
+        this.code = code;
+    }
+
+}

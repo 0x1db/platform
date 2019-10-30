@@ -1,0 +1,42 @@
+package ${packageName}.service.convert;
+
+import java.util.List;
+
+import com.google.common.collect.Lists;
+import org.apache.commons.collections.CollectionUtils;
+import ${packageName}.domain.${upClassName}${domain};
+import ${packageName}.dao.model.${upClassName};
+
+${classTitle}
+public class ${upClassName}Convert {
+
+    private ${upClassName}Convert() {
+    }
+
+    public static ${upClassName} convert(${upClassName}${domain} ${lowClassName}${domain}) {
+        if (${lowClassName}${domain} == null) {
+            return null;
+        }
+
+        ${upClassName} ${lowClassName} = new ${upClassName}();
+#foreach($convert in $converts)
+        ${convert};
+#end
+
+        return ${lowClassName};
+    }
+
+    public static List<${upClassName}> convert(List<${upClassName}${domain}> ${lowClassName}${domain}s) {
+        if (CollectionUtils.isEmpty(${lowClassName}${domain}s)) {
+            return Lists.newArrayList();
+        }
+
+        List<${upClassName}> ${lowClassName}s = Lists.newArrayList();
+        for (${upClassName}${domain} ${lowClassName}${domain} : ${lowClassName}${domain}s) {
+            ${lowClassName}s.add(convert(${lowClassName}${domain}));
+        }
+
+        return ${lowClassName}s;
+    }
+
+}

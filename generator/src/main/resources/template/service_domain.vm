@@ -1,0 +1,19 @@
+package ${packageName}.domain;
+
+#foreach($ims in $importSets)
+${ims}
+#end
+import org.apache.commons.lang.builder.ToStringBuilder;
+import ${packageName}.common.NoNullStyle;
+import ${packageName}.dao.model.${upClassName};
+import java.io.Serializable;
+
+${classTitle}
+public class ${upClassName}${domain} extends ${upClassName} implements Serializable {
+    private static final long serialVersionUID = ${SerialVersionUID}L;
+
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this, new NoNullStyle());
+    }
+}

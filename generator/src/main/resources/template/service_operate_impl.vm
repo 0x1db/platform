@@ -1,0 +1,41 @@
+package ${packageName}.service;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import ${packageName}.dao.model.${upClassName};
+import ${packageName}.dao.${upClassName}Mapper;
+import ${packageName}.dao.model.${upClassName};
+import ${packageName}.service.Utils.${upClassName}Util;
+import ${packageName}.result.${upClassName}Exception;
+import ${packageName}.result.${upClassName}Result;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+${classTitle}
+@Service("${lowClassName}OperateService")
+public class ${upClassName}OperateServiceImpl implements ${upClassName}OperateService {
+
+	/** sl4j */
+	private static final Logger LOGGER = LoggerFactory.getLogger(${upClassName}OperateServiceImpl.class);
+
+	@Autowired
+	private ${upClassName}Mapper ${lowClassName}Mapper;
+
+	@Override
+	public void add${upClassName}(${upClassName} ${lowClassName}) {
+		${upClassName}Util.validAdd${upClassName}(${lowClassName});
+
+		${lowClassName}Mapper.add${upClassName}(${lowClassName});
+		LOGGER.info("增加${upClassName}成功, ${lowClassName}={}", ${lowClassName});
+	}
+
+	@Override
+	public void update${upClassName}(${upClassName} ${lowClassName}) {
+		${upClassName}Util.validUpdate${upClassName}(${lowClassName});
+
+		${lowClassName}Mapper.update${upClassName}(${lowClassName});
+		LOGGER.info("更新${upClassName}成功, ${lowClassName}={}", ${lowClassName});
+	}
+
+}

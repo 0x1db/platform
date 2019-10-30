@@ -1,0 +1,26 @@
+package ${packageName}.dao.model;
+
+#foreach($ims in $importSets)
+${ims}
+#end
+import org.apache.ibatis.type.Alias;
+import org.apache.commons.lang.builder.ToStringBuilder;
+import ${packageName}.common.NoNullStyle;
+import java.io.Serializable;
+
+${classTitle}
+@Alias("${upClassName}")
+public class ${upClassName} implements Serializable {
+    private static final long serialVersionUID = ${SerialVersionUID}L;
+
+#foreach($field in $fields)
+    ${field}
+#end
+#foreach($method in $methods)
+    ${method}
+#end
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this, new NoNullStyle());
+    }
+}

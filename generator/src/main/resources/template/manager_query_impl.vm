@@ -1,0 +1,42 @@
+package ${packageName}.manage.impl;
+
+import ${packageName}.dao.model.${upClassName};
+import ${packageName}.vo.${upClassName}VO;
+import ${packageName}.common.page.Paging;
+import ${packageName}.common.page.PagingRequest;
+
+import java.util.List;
+import java.util.Map;
+import ${packageName}.service.${upClassName}QueryService;
+
+${classTitle}
+@Service("${lowClassName}QueryManager")
+public class ${upClassName}QueryManagerImpl implements ${upClassName}QueryManager {
+
+	/** sl4j */
+	private static final Logger LOGGER = LoggerFactory.getLogger(${upClassName}QueryManagerImpl.class);
+
+	@Autowired
+	private ${upClassName}QueryService ${lowClassName}QueryService;
+
+	@Override
+    public ${upClassName} find${upClassName}By${primaryKeyFirstSymbolUppercase}(${primaryKeyType} ${primaryKey}) {
+        return ${lowClassName}QueryService.find${upClassName}By${primaryKeyFirstSymbolUppercase}(${primaryKey});
+	}
+
+	@Override
+	public List<${upClassName}> list${upClassName}(${primaryKeyType}[] ${primaryKey}s) {
+        return ${lowClassName}QueryService.list${upClassName}(${primaryKey}s);
+	}
+
+	@Override
+	public Map<${primaryKeyType}, ${upClassName}> map${upClassName}(${primaryKeyType}[] ${primaryKey}s) {
+		return ${lowClassName}QueryService.map${upClassName}(${primaryKey}s);
+	}
+
+	@Override
+	public Paging<${upClassName}> find${upClassName}ByPage(${upClassName}VO ${lowClassName}VO, PagingRequest pagingRequest) {
+        return ${lowClassName}QueryService.find${upClassName}ByPage(pagingRequest, ${lowClassName}VO);
+	}
+
+}

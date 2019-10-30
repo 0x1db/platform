@@ -1,0 +1,24 @@
+package ${packageName}.${lowClassName}.service.impl;
+
+import com.platform.core.service.impl.BaseServiceImpl;
+import ${packageName}.dao.${upClassName}Mapper;
+import ${packageName}.domain.${upClassName};
+import ${packageName}.service.${upClassName}Service;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+${classTitle}
+@Service
+public class ${upClassName}ServiceImpl extends BaseServiceImpl<${upClassName}> implements ${upClassName}Service {
+
+    /**
+    * sl4j
+    */
+    private static final Logger LOGGER = LoggerFactory.getLogger(${upClassName}ServiceImpl.class);
+
+    @Autowired
+    private ${upClassName}Mapper ${lowClassName}Mapper;
+
+}

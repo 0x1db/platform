@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+    <!--Spring注入Generator-->
+    <bean id="controllerGenerator" class="com.platform.generator.core.impl.ControllerGenerator"/>
+    <bean id="managerGenerator" class="com.platform.generator.core.impl.ManagerGenerator"/>
+    <bean id="oracleMapperGenerator" class="com.platform.generator.core.impl.OracleMapperGenerator"/>
+    <bean id="mapperGenerator" class="com.platform.generator.core.impl.MapperGenerator"/>
+    <bean id="resultGenerator" class="com.platform.generator.core.impl.ResultGenerator"/>
+    <bean id="serviceGenerator" class="com.platform.generator.core.impl.ServiceGenerator"/>
+    <bean id="domainGenerator" class="com.platform.generator.core.impl.DomainGenerator"/>
+    <bean id="jspGenerator" class="com.platform.generator.core.impl.JspGenerator"/>
+
+
+    <!--Spring facade-->
+    <bean id="generatorFacade" class="com.platform.generator.core.impl.GeneratorFacade">
+        <property name="generatorMap">
+            <map>
+                <entry key="controller" value-ref="controllerGenerator"/>
+                <entry key="manage" value-ref="managerGenerator"/>
+                <entry key="mapper" value-ref="mapperGenerator"/>
+                <entry key="oracle_mapper" value-ref="oracleMapperGenerator"/>
+                <entry key="result" value-ref="resultGenerator"/>
+                <entry key="service" value-ref="serviceGenerator"/>
+                <entry key="domain" value-ref="domainGenerator"/>
+                <entry key="jsp" value-ref="jspGenerator"/>
+            </map>
+        </property>
+    </bean>
+
+</beans>
