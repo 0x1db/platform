@@ -82,12 +82,13 @@ public abstract class AbstractGeneratorImpl implements Generator {
         for (String templateName : params.keySet()) {
             Template template = velocityEngine.getTemplate(VM_TARGET_PATH + CharPool.FORWARD_SLASH + templateName, "UTF-8");
             initVelocityContext(velocityContext, generatorContext);
-
-            StringWriter writer = new StringWriter();
-            template.merge(velocityContext, writer);
-            String content = writer.toString();
-            GeneratorFileUtils.write(content, params.get(templateName));
-            IOUtils.closeQuietly(writer);
+            try (StringWriter writer = new StringWriter()) {
+                template.merge(velocityContext, writer);
+                String content = writer.toString();
+                GeneratorFileUtils.write(content, params.get(templateName));
+            } catch (IOException e) {
+                //LOG ERROR
+            }
         }
     }
 

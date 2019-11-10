@@ -24,7 +24,7 @@ public class BaseController {
      * @return
      */
     protected <T> ResponseModel buildSuccessResult() {
-        ResponseModel result = new ResponseModel(System.currentTimeMillis(), null, ResponseCode.SUCCESS, null);
+        ResponseModel result = new ResponseModel(System.currentTimeMillis(), null, ResponseCode.SUCCESS.getCode(), null);
         return result;
     }
 
@@ -35,8 +35,8 @@ public class BaseController {
      * @param <T>
      * @return
      */
-    protected <T> ResponseModel buildSuccessReslut(T entity) {
-        ResponseModel result = new ResponseModel(System.currentTimeMillis(), null, ResponseCode.SUCCESS, null);
+    protected <T> ResponseModel buildSuccessResult(T entity) {
+        ResponseModel result = new ResponseModel(System.currentTimeMillis(), null, ResponseCode.SUCCESS.getCode(), null);
         if (entity == null) {
             return result;
         }
@@ -51,7 +51,7 @@ public class BaseController {
      * @return
      */
     protected <T> ResponseModel buildErrorReslut(ResponseCode responseCode, String message) {
-        ResponseModel result = new ResponseModel(System.currentTimeMillis(), null, responseCode,
+        ResponseModel result = new ResponseModel(System.currentTimeMillis(), null, responseCode.getCode(),
                 message);
         return result;
     }

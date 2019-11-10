@@ -1,9 +1,9 @@
-package ${packageName}.${lowClassName}.service;
+package $!{packageName}.$!{lowClassName}.service;
 
 import com.platform.core.service.BaseService;
-import ${packageName}.domain.${upClassName};
+import $!{packageName}.domain.$!{upClassName};
 
-${classTitle}
-public interface ${upClassName}Service extends BaseService<${upClassName}> {
+$!{classTitle}
+public interface $!{upClassName}Service extends BaseService<$!{upClassName}> {
 	
 }

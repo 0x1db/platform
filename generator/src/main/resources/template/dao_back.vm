@@ -1,64 +1,67 @@
-package ${packageName}.dao;
+package $!{packageName}.dao;
 
 import java.util.List;
 import java.util.Map;
 
-import ${packageName}.model.${upClassName};
+import $!{packageName}.model.$!{upClassName};
 
-${classTitle}
-public interface ${upClassName}Mapper {
+$!{classTitle}
+public interface $!{upClassName}Mapper {
 
     /**
-     * 创建${upClassName}
+* 创建$!{upClassName}
      *
-     * @param ${lowClassName} ${upClassName}对象
+* @param $!{lowClassName} $!{upClassName}对象
      */
-    public void add${upClassName}(${upClassName} ${lowClassName});
+public void add$!{upClassName}($!{upClassName} $!{lowClassName});
 
     /**
-     * 更新${upClassName}
+* 更新$!{upClassName}
      *
-     * @param ${lowClassName} ${upClassName}对象
+* @param $!{lowClassName} $!{upClassName}对象
      */
-    public void update${upClassName}(${upClassName} ${lowClassName});
+public void update$!{upClassName}($!{upClassName} $!{lowClassName});
 
     /**
-     * 主键${primaryKey}删除${upClassName}
+* 主键$!{primaryKey}删除$!{upClassName}
      *
-     * @param ${lowClassName} ${upClassName}对象
+* @param $!{lowClassName} $!{upClassName}对象
      */
-    public void delete${upClassName}(${upClassName} ${lowClassName});
+public void delete$!{upClassName}($!{upClassName} $!{lowClassName});
 
     /**
-     * 主键${primaryKey}查询${upClassName}
+* 主键$!{primaryKey}查询$!{upClassName}
      *
-     * @param ${primaryKey} ${upClassName}主键
-     * @return ${upClassName}对象
+* @param $!{primaryKey} $!{upClassName}主键
+* @return $!{upClassName}对象
      */
-    public ${upClassName} findBy${primaryKeyFirstSymbolUppercase}(${primaryKeyType} ${primaryKey});
+public $!{upClassName} findBy$!{primaryKeyFirstSymbolUppercase}($!{primaryKeyType} $!{primaryKey});
 
     /**
-     * 查询${upClassName}对象
-     *
-     * @param map 查询参数HashMap
-     * @return ${upClassName}对象
-     */
-    public ${upClassName} find${upClassName}(Map<String, Object> map);
-
-    /**
-     * 查询${upClassName} list集合
+* 查询$!{upClassName}对象
      *
      * @param map 查询参数HashMap
-     * @return List<${upClassName}>对象
+* @return $!{upClassName}对象
      */
-    public List<${upClassName}> list${upClassName}(Map<String, Object> map);
+public $!{upClassName} find$!{upClassName}(Map
+<String, Object> map);
 
     /**
-     * 查询${upClassName}数量
+* 查询$!{upClassName} list集合
+     *
+     * @param map 查询参数HashMap
+* @return List<$!{upClassName}>对象
+     */
+public List<$!{upClassName}> list$!{upClassName}(Map
+<String, Object> map);
+
+    /**
+* 查询$!{upClassName}数量
      *
      * @param map 查询参数HashMap
      * @return 查询记录条数
      */
-    public Integer list${upClassName}Count(Map<String, Object> map);
+public Integer list$!{upClassName}Count(Map
+<String, Object> map);
 
 }

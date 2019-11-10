@@ -1,14 +1,14 @@
-package ${packageName}.result;
+package $!{packageName}.result;
 
 import org.apache.commons.lang.StringUtils;
 
-${classTitle}
-public enum ${upClassName}Result {
+$!{classTitle}
+public enum $!{upClassName}Result {
 
-#foreach($allUpCaseCol in $allUpCaseCols)
-    /** $remarkMap.get(${allUpCaseCol})为空 */
-    #set($coudeIndex = $velocityCount + 1000)
-${noPrefixTableName}_${allUpCaseCol}_NULL($coudeIndex, "${noPrefixTableName}_${allUpCaseCol}_NULL"),
+#foreach($!allUpCaseCol in $!allUpCaseCols)
+/** $!remarkMap.get($!{allUpCaseCol})为空 */
+    #set($!coudeIndex = $!velocityCount + 1000)
+    $!{noPrefixTableName}_$!{allUpCaseCol}_NULL($!coudeIndex, "$!{noPrefixTableName}_$!{allUpCaseCol}_NULL"),
 
 #end
     /** 成功 */
@@ -23,16 +23,16 @@ ${noPrefixTableName}_${allUpCaseCol}_NULL($coudeIndex, "${noPrefixTableName}_${a
 
     private String type;
 
-    ${upClassName}Result(int code, String type) {
+$!{upClassName}Result(int code, String type) {
         this.code = code;
         this.type = type;
     }
 
-    public static ${upClassName}Result getByType(String type) {
+public static $!{upClassName}Result getByType(String type) {
         if (StringUtils.isBlank(type))
             return null;
 
-        for (${upClassName}Result result : ${upClassName}Result.values()) {
+for ($!{upClassName}Result result : $!{upClassName}Result.values()) {
             if (StringUtils.equals(type, result.getType())) {
                 return result;
             }

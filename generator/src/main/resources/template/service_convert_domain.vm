@@ -1,42 +1,42 @@
-package ${packageName}.service.convert;
+package $!{packageName}.service.convert;
 
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
 import com.google.common.collect.Lists;
-import ${packageName}.domain.${upClassName}${domain};
-import ${packageName}.dao.model.${upClassName};
+import $!{packageName}.domain.$!{upClassName}$!{domain};
+import $!{packageName}.dao.model.$!{upClassName};
 
-${classTitle}
-public class ${upClassName}${domain}Convert {
+$!{classTitle}
+public class $!{upClassName}$!{domain}Convert {
 
-    private ${upClassName}${domain}Convert() {
+private $!{upClassName}$!{domain}Convert() {
     }
 
-    public static ${upClassName}${domain} convert(${upClassName} ${lowClassName}) {
-        if (${lowClassName} == null) {
+public static $!{upClassName}$!{domain} convert($!{upClassName} $!{lowClassName}) {
+if ($!{lowClassName} == null) {
             return null;
         }
 
-        ${upClassName}${domain} ${lowClassName}${domain} = new ${upClassName}${domain}();
-#foreach($convert in $convertDomains)
-        ${convert};
+$!{upClassName}$!{domain} $!{lowClassName}$!{domain} = new $!{upClassName}$!{domain}();
+#foreach($!convert in $!convertDomains)
+    $!{convert};
 #end
 
-        return ${lowClassName}${domain};
+return $!{lowClassName}$!{domain};
     }
 
-    public static List<${upClassName}${domain}> convert(List<${upClassName}> ${lowClassName}s) {
-        if (CollectionUtils.isEmpty(${lowClassName}s)) {
+public static List<$!{upClassName}$!{domain}> convert(List<$!{upClassName}> $!{lowClassName}s) {
+if (CollectionUtils.isEmpty($!{lowClassName}s)) {
             return Lists.newArrayList();
         }
 
-        List<${upClassName}${domain}> ${lowClassName}${domain}s = Lists.newArrayList();
-        for (${upClassName} ${lowClassName} : ${lowClassName}s) {
-            ${lowClassName}${domain}s.add(convert(${lowClassName}));
+List<$!{upClassName}$!{domain}> $!{lowClassName}$!{domain}s = Lists.newArrayList();
+for ($!{upClassName} $!{lowClassName} : $!{lowClassName}s) {
+$!{lowClassName}$!{domain}s.add(convert($!{lowClassName}));
         }
 
-        return ${lowClassName}${domain}s;
+return $!{lowClassName}$!{domain}s;
     }
 
 }

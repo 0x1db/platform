@@ -12,6 +12,7 @@ import org.springframework.core.io.support.PropertiesLoaderUtils;
 import org.springframework.util.CollectionUtils;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Properties;
 import java.util.Vector;
@@ -19,8 +20,8 @@ import java.util.Vector;
 /**
  * 基本的配置类实现
  *
- *  @author: wangyu
- *  @date: 2019/10/26 22:56
+ * @author: wangyu
+ * @date: 2019/10/26 22:56
  */
 public class DefaultGeneratorConfig implements GeneratorConfig {
 
@@ -153,13 +154,9 @@ public class DefaultGeneratorConfig implements GeneratorConfig {
             }
         }
 
-        DefaultGeneratorConfig.properties = new Properties();
-        InputStream inputStream = null;
-        BufferedReader bufferedReader = null;
-        try {
+        try (InputStream inputStream = new FileInputStream(configFilePath);
+             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8))) {
             LOGGER.info("加载配置文件" + configFilePath);
-            inputStream = new FileInputStream(configFilePath);
-            bufferedReader = new BufferedReader(new InputStreamReader(inputStream, Charsets.UTF_8));
             DefaultGeneratorConfig.properties.load(bufferedReader);
         } catch (Exception e) {
             LOGGER.warn("加载配置文件出现异常，读取默认配置" + LOCAL_GENERATOR_PATH);
@@ -168,14 +165,12 @@ public class DefaultGeneratorConfig implements GeneratorConfig {
             } catch (IOException ex) {
                 throw new RuntimeException("读取配置文件失败.", e);
             }
-        } finally {
-            IOUtils.closeQuietly(bufferedReader);
-            IOUtils.closeQuietly(inputStream);
         }
     }
 
     /**
      * 获取项目目录下的所有properties文件
+     *
      * @param projectPath
      * @return
      */

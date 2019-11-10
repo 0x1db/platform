@@ -1,47 +1,47 @@
-package ${packageName}.service;
+package $!{packageName}.service;
 
-import ${packageName}.dao.model.${upClassName};
-import ${packageName}.vo.${upClassName}VO;
-import ${packageName}.common.page.Paging;
-import ${packageName}.common.page.PagingRequest;
+import $!{packageName}.dao.model.$!{upClassName};
+import $!{packageName}.vo.$!{upClassName}VO;
+import $!{packageName}.common.page.Paging;
+import $!{packageName}.common.page.PagingRequest;
 
 import java.util.List;
 import java.util.Map;
 
-${classTitle}
-public interface ${upClassName}QueryService {
+$!{classTitle}
+public interface $!{upClassName}QueryService {
 
 	/**
-	 * 通过主键${primaryKeyType}查询${upClassName}
+* 通过主键$!{primaryKeyType}查询$!{upClassName}
      *
-	 * @param ${primaryKey} ${upClassName}主键
-	 * @return ${upClassName}对象
+* @param $!{primaryKey} $!{upClassName}主键
+* @return $!{upClassName}对象
 	 */
-	public ${upClassName} find${upClassName}By${primaryKeyFirstSymbolUppercase}(${primaryKeyType} ${primaryKey});
+public $!{upClassName} find$!{upClassName}By$!{primaryKeyFirstSymbolUppercase}($!{primaryKeyType} $!{primaryKey});
 
 	/**
-	 * 通过${primaryKeyType}集合查询${upClassName}
-	 *
-	 * @param ${primaryKey}s ${upClassName}s主键数组
-	 * @return List<${upClassName}>
+* 通过$!{primaryKeyType}集合查询$!{upClassName}
+*
+* @param $!{primaryKey}s $!{upClassName}s主键数组
+* @return List<$!{upClassName}>
 	 */
-	public List<${upClassName}> list${upClassName}(${primaryKeyType}[] ${primaryKey}s);
+public List<$!{upClassName}> list$!{upClassName}($!{primaryKeyType}[] $!{primaryKey}s);
 
 	/**
-	 * 通过${primaryKeyType}集合查询${upClassName}
-	 *
-	 * @param ${primaryKey}s ${upClassName}s主键数组
-	 * @return Map<${primaryKeyType}, ${upClassName}> KEY:${primaryKey} Value:${upClassName}
+* 通过$!{primaryKeyType}集合查询$!{upClassName}
+*
+* @param $!{primaryKey}s $!{upClassName}s主键数组
+* @return Map<$!{primaryKeyType}, $!{upClassName}> KEY:$!{primaryKey} Value:$!{upClassName}
 	 */
-	public Map<${primaryKeyType}, ${upClassName}> map${upClassName}(${primaryKeyType}[] ${primaryKey}s);
+public Map<$!{primaryKeyType}, $!{upClassName}> map$!{upClassName}($!{primaryKeyType}[] $!{primaryKey}s);
 
 	/**
-	 * 分页查询${upClassName}
-	 *
-	 * @param ${lowClassName}VO ${upClassName}VO对象
+* 分页查询$!{upClassName}
+*
+* @param $!{lowClassName}VO $!{upClassName}VO对象
      * @param pagingRequest 分页请求
      * @return paging对象
 	 */
-	public Paging<${upClassName}> find${upClassName}ByPage(${upClassName}VO ${lowClassName}VO, PagingRequest pagingRequest);
+public Paging<$!{upClassName}> find$!{upClassName}ByPage($!{upClassName}VO $!{lowClassName}VO, PagingRequest pagingRequest);
 
 }

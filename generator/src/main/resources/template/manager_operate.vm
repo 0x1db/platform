@@ -1,22 +1,22 @@
-package ${packageName}.manage;
+package $!{packageName}.manage;
 
-import ${packageName}.dao.model.${upClassName};
+import $!{packageName}.dao.model.$!{upClassName};
 
-${classTitle}
-public interface ${upClassName}OperateManager {
+$!{classTitle}
+public interface $!{upClassName}OperateManager {
 
 	/**
-     * 创建${upClassName}
+* 创建$!{upClassName}
      *
-     * @param ${lowClassName} ${upClassName}对象
+* @param $!{lowClassName} $!{upClassName}对象
 	 */
-	public void add${upClassName}(${upClassName} ${lowClassName});
+public void add$!{upClassName}($!{upClassName} $!{lowClassName});
 
 	/**
-	 * 更新${upClassName}
-	 *
-	 * @param ${lowClassName} ${upClassName}对象
+* 更新$!{upClassName}
+*
+* @param $!{lowClassName} $!{upClassName}对象
 	 */
-	public void update${upClassName}(${upClassName} ${lowClassName});
+public void update$!{upClassName}($!{upClassName} $!{lowClassName});
 
 }

@@ -1,12 +1,12 @@
-package ${packageName}.${lowClassName}.dao;
+package $!{packageName}.$!{lowClassName}.dao;
 
 import com.platform.core.persistence.BaseMapper;
-import ${packageName}.domain.${upClassName};
+import $!{packageName}.domain.$!{upClassName};
 import org.apache.ibatis.annotations.Mapper;
 
-${classTitle}
+$!{classTitle}
 @Mapper
-public interface ${upClassName}Mapper extends BaseMapper<${upClassName}> {
+public interface $!{upClassName}Mapper extends BaseMapper<$!{upClassName}> {
 
 
 }

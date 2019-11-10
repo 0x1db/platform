@@ -1,5 +1,6 @@
 package com.platform.core.service;
 
+import com.github.pagehelper.PageInfo;
 import com.platform.core.entity.BaseEntity;
 import com.platform.core.entity.Page;
 
@@ -9,6 +10,7 @@ import java.util.Map;
 
 /**
  * 通用service
+ *
  * @author wangyu
  * @date 2019/10/27 23:24
  */
@@ -60,14 +62,6 @@ public interface BaseService<T extends BaseEntity> {
      */
     List<T> findByIds(Long[] ids);
 
-    /**
-     * 查询分页数据
-     *
-     * @param page 分页对象
-     * @return
-     */
-    Page<T> findPages(Page<T> page);
-
 
     /**
      * 统计个数
@@ -81,6 +75,7 @@ public interface BaseService<T extends BaseEntity> {
      * 插入数据
      *
      * @param entity
+     * @return
      */
     int insert(T entity);
 
@@ -88,6 +83,7 @@ public interface BaseService<T extends BaseEntity> {
      * 更新数据
      *
      * @param entity
+     * @return
      */
     int update(T entity);
 
@@ -95,6 +91,7 @@ public interface BaseService<T extends BaseEntity> {
      * 删除数据
      *
      * @param entity
+     * @return
      */
     int delete(T entity);
 
@@ -102,6 +99,7 @@ public interface BaseService<T extends BaseEntity> {
      * 删除数据
      *
      * @param id
+     * @return
      */
     int delete(Serializable id);
 

@@ -1,5 +1,7 @@
 package com.platform.core.entity;
 
+import com.google.common.collect.Maps;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -118,7 +120,7 @@ public class Page<T> {
      */
     public Map<String, Object> getParam() {
         if (param == null) {
-            param = new HashMap<String, Object>();
+            param = Maps.newHashMapWithExpectedSize(16);
         }
         return param;
     }

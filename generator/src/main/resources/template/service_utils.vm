@@ -1,4 +1,4 @@
-package ${packageName}.service.Utils;
+package $!{packageName}.service.Utils;
 
 import java.util.List;
 
@@ -8,37 +8,37 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.commons.lang.StringUtils;
 
-${classTitle}
-public class ${upClassName}Util {
+$!{classTitle}
+public class $!{upClassName}Util {
 
     /** slf4j */
-    private static final Logger LOGGER = LoggerFactory.getLogger(${upClassName}Util.class);
+private static final Logger LOGGER = LoggerFactory.getLogger($!{upClassName}Util.class);
 
     /**
      * Don't let anyone instantiate this class.
      */
-    private ${upClassName}Util() {
+private $!{upClassName}Util() {
     }
 
     /**
-     * 校验增加${upClassName}参数
+* 校验增加$!{upClassName}参数
      *
-     * @param ${lowClassName}
+* @param $!{lowClassName}
      */
-    public static void validAdd${upClassName}(${upClassName} ${lowClassName}) {
-#foreach($util in $addUtils)
-    ${util}
+public static void validAdd$!{upClassName}($!{upClassName} $!{lowClassName}) {
+#foreach($!util in $!addUtils)
+    $!{util}
 #end
     }
 
     /**
-     * 校验修改${upClassName}参数
+* 校验修改$!{upClassName}参数
      *
-     * @param ${lowClassName}
+* @param $!{lowClassName}
      */
-    public static void validUpdate${upClassName}(${upClassName} ${lowClassName}) {
-#foreach($util in $uptUtils)
-    ${util}
+public static void validUpdate$!{upClassName}($!{upClassName} $!{lowClassName}) {
+#foreach($!util in $!uptUtils)
+    $!{util}
 #end
     }
 }

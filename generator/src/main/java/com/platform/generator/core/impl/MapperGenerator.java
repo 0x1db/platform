@@ -42,11 +42,14 @@ public class MapperGenerator extends AbstractGeneratorImpl {
 
         final String pk = (String) velocityContext.get(CodeConfigType.PRIMARY_KEY.getDesc());
         for (String col : columnNameTypeMap.keySet()) {
+            //property
             String field = GeneratorStringUtils.format(col);
             columns.add(tableName + "." + col);
-            StringBuilder cloumBf = new StringBuilder();
-            cloumBf.append("<result property=\"").append(field).append("\" column=\"").append(col).append("\"/>");
-            resultMapColumns.add(cloumBf.toString());
+            //JdbcType
+            String jdbcType = castToJdbcType(columnNameTypeMap.get(col));
+            StringBuilder columnBf = new StringBuilder();
+            columnBf.append("<result property=\"").append(field).append("\" column=\"").append(col).append("\" jdbcType=\"").append(jdbcType).append("\"/>");
+            resultMapColumns.add(columnBf.toString());
 
             // 对应主键自增,不生成代码
             boolean autoIdKey = false;
@@ -153,6 +156,22 @@ public class MapperGenerator extends AbstractGeneratorImpl {
             columns.set(i, tempCol);
         }
         velocityContext.put(CodeConfigType.COLUMNS.getDesc(), columns);
+    }
+
+    private String castToJdbcType(String type) {
+        if (type.equalsIgnoreCase("long")) {
+            return "BIGINT";
+        }
+        if (type.equalsIgnoreCase("string")) {
+            return "VARCHAR";
+        }
+        if (type.equalsIgnoreCase("double")) {
+            return "DOUBLE";
+        }
+        if (type.equalsIgnoreCase("boolean")) {
+            return "BIT";
+        }
+        return "";
     }
 
     @Override

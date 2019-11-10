@@ -1,6 +1,9 @@
 package com.platform.core.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.platform.core.entity.BaseEntity;
 import com.platform.core.entity.Page;
 import com.platform.core.persistence.BaseMapper;
@@ -53,22 +56,10 @@ public abstract class BaseServiceImpl<T extends BaseEntity> implements BaseServi
         return baseMapper.findList(map);
     }
 
-    @Override
-    public Page<T> findPages(Page<T> page) {
-        if (page == null) {
-            return null;
-        }
-
-        List<T> records = baseMapper.findList(page.getParam());
-        int countNums = records.size();
-        page = new Page<>(page.getCurrentPage(), page.getPageSize(), countNums);
-        page.setItems(records);
-        return page;
-    }
 
     @Override
     public List<T> findAll() {
-        return baseMapper.findList(new HashMap<String, Object>());
+        return baseMapper.findList(Maps.newHashMapWithExpectedSize(16));
     }
 
     @Override

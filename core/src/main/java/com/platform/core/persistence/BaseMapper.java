@@ -1,6 +1,7 @@
 package com.platform.core.persistence;
 
 import com.platform.core.entity.Page;
+import org.springframework.stereotype.Repository;
 
 import java.io.Serializable;
 import java.util.List;
@@ -56,14 +57,6 @@ public interface BaseMapper<T> {
     List<T> findList(Map<String, Object> map);
 
     /**
-     * 查询数据分页列表
-     *
-     * @param page
-     * @return
-     */
-    List<T> findPages(Page<T> page);
-
-    /**
      * 按照条件统计
      *
      * @param map
@@ -98,8 +91,8 @@ public interface BaseMapper<T> {
     /**
      * 删除数据
      *
+     * @param id
      * @return
-     * @see public int delete(T entity)
      */
     int delete(Serializable id);
 

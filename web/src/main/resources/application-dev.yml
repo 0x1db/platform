@@ -1,0 +1,32 @@
+#dev开发分支
+spring:
+  profiles:
+    active: dev
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://localhost:3306/manager?characterEncoding=utf8&amp;useSSL=false
+    username: root
+    password: 123456
+    driverClassName: com.mysql.jdbc.Driver
+
+#mybatis
+mybatis:
+  #mapper文件位置
+  mapper-locations: classpath:mappings/*Mapper.xml
+  #实体位置
+  type-aliases-package: com.wangyu.web.domain
+  #开启mybatis驼峰命名
+  configuration:
+    map-underscore-to-camel-case: true
+  type-handlers-package: com.wangyu.web.config.handlers
+
+#showSql
+logging:
+  level:
+    com:
+      wangyu:
+        web:
+          dao: debug
+
+server:
+  port: 8888

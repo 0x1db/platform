@@ -19,7 +19,7 @@ public class ResponseModel {
     /**
      * 响应标记，正常情况下是200
      */
-    private ResponseCode responseCode = ResponseCode.SUCCESS;
+    private String responseCode = ResponseCode.SUCCESS.getCode();
 
     /** 异常信息描述 */
     private String errorMsg;
@@ -27,7 +27,7 @@ public class ResponseModel {
     public ResponseModel() {
     }
 
-    public ResponseModel(Long timestamp, Object data, ResponseCode responseCode, String errorMsg) {
+    public ResponseModel(Long timestamp, Object data, String responseCode, String errorMsg) {
         this.timestamp = timestamp;
         this.data = data;
         this.responseCode = responseCode;
@@ -50,11 +50,11 @@ public class ResponseModel {
         this.data = data;
     }
 
-    public ResponseCode getResponseCode() {
+    public String getResponseCode() {
         return responseCode;
     }
 
-    public void setResponseCode(ResponseCode responseCode) {
+    public void setResponseCode(String responseCode) {
         this.responseCode = responseCode;
     }
 

@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wangyu.web.dao.BaseUserInfoMapper">
+    <resultMap id="baseUserInfo_result" type="BaseUserInfo">
+        <result property="id" column="id" jdbcType="BIGINT"/>
+        <result property="username" column="username" jdbcType="VARCHAR"/>
+        <result property="password" column="password" jdbcType="VARCHAR"/>
+        <result property="status" column="status" jdbcType="VARCHAR"/>
+        <result property="type" column="type" jdbcType="VARCHAR"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="baseUserInfo_column">
+        base_user_info.id,
+        base_user_info.username,
+        base_user_info.password,
+        base_user_info.status,
+        base_user_info.type,
+        base_user_info.remark
+    </sql>
+
+    <sql id="baseUserInfo_query_param">
+        <trim prefix="WHERE" prefixOverrides="AND|OR">
+            <if test="id!=null">
+                AND base_user_info.id = #{id,jdbcType=BIGINT}
+            </if>
+            <if test="ids!=null">
+                AND base_user_info.id IN
+                <foreach collection="ids" item="id" open="(" close=")" separator=",">
+                    #{id,jdbcType=BIGINT}
+                </foreach>
+            </if>
+            <if test="username!=null and ''!=username">
+                AND base_user_info.username = #{username,jdbcType=VARCHAR}
+            </if>
+            <if test="password!=null and ''!=password">
+                AND base_user_info.password = #{password,jdbcType=VARCHAR}
+            </if>
+            <if test="status!=null">
+                AND base_user_info.status = #{status,jdbcType=VARCHAR}
+            </if>
+            <if test="type!=null">
+                AND base_user_info.type = #{type,jdbcType=VARCHAR}
+            </if>
+            <if test="remark!=null and ''!=remark">
+                AND base_user_info.remark = #{remark,jdbcType=VARCHAR}
+            </if>
+        </trim>
+    </sql>
+
+    <!-- 根据编号查询 -->
+    <select id="get" resultType="BaseUserInfo">
+        SELECT
+        <include refid="baseUserInfo_column"/>
+        FROM base_user_info
+        WHERE base_user_info.id = #{id,jdbcType=BIGINT}
+    </select>
+
+    <!-- 插入-->
+    <insert id="insert" parameterType="BaseUserInfo" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO base_user_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="username!=null and ''!=username">
+                username,
+            </if>
+            <if test="password!=null and ''!=password">
+                password,
+            </if>
+            <if test="status!=null">
+                status,
+            </if>
+            <if test="type!=null">
+                type,
+            </if>
+            <if test="remark!=null and ''!=remark">
+                remark,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="username!=null and ''!=username">
+                #{username,jdbcType=VARCHAR},
+            </if>
+            <if test="password!=null and ''!=password">
+                #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="status!=null">
+                #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="type!=null">
+                #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="remark!=null and ''!=remark">
+                #{remark,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <!-- 修改 -->
+    <update id="update">
+        UPDATE base_user_info
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="username!=null and ''!=username">
+                base_user_info.username = #{username,jdbcType=VARCHAR},
+            </if>
+            <if test="password!=null and ''!=password">
+                base_user_info.password = #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="status!=null">
+                base_user_info.status = #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="type!=null">
+                base_user_info.type = #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="remark!=null and ''!=remark">
+                base_user_info.remark = #{remark,jdbcType=VARCHAR},
+            </if>
+        </trim>
+        WHERE base_user_info.id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <!-- 删除-->
+    <delete id="delete">
+        DELETE
+        FROM base_user_info
+        WHERE id = #{id,jdbcType=BIGINT}
+    </delete>
+
+    <!-- 批量删除-->
+    <delete id="batchDelete">
+        DELETE FROM base_user_info
+        WHERE id IN
+        <foreach collection="array" item="id" open="(" close=")" separator=",">
+            #{id,jdbcType=BIGINT}
+        </foreach>
+    </delete>
+
+    <!-- 查询列表-->
+    <select id="findList" resultType="BaseUserInfo" parameterType="java.util.HashMap">
+        SELECT
+        <include refid="baseUserInfo_column"/>
+        FROM base_user_info
+        <include refid="baseUserInfo_query_param"/>
+    </select>
+
+
+    <!-- 根据给定的ids查询列表-->
+    <select id="findByIds" resultType="BaseUserInfo">
+        SELECT
+        <include refid="baseUserInfo_column"/>
+        FROM base_user_info
+        WHERE id IN
+        <foreach collection="array" item="id" open="(" close=")" separator=",">
+            #{id,jdbcType=BIGINT}
+        </foreach>
+    </select>
+
+    <!-- 查询单个实例-->
+    <select id="findOne" resultType="BaseUserInfo" parameterType="java.util.HashMap">
+        SELECT
+        <include refid="baseUserInfo_column"/>
+        FROM base_user_info
+        <include refid="baseUserInfo_query_param"/>
+    </select>
+
+    <!-- 统计个数-->
+    <select id="countNums" resultType="long" parameterType="java.util.HashMap">
+        SELECT count(1)
+        FROM base_user_info
+        <include refid="baseUserInfo_query_param"/>
+    </select>
+
+</mapper>

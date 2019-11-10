@@ -214,7 +214,7 @@ public class MysqlConnector implements Connector {
      */
     @Override
     public Map<String, String> getPrimaryKey(String tableName) {
-        Map<String, String> map = new HashMap<String, String>();
+        Map<String, String> map = Maps.newHashMapWithExpectedSize(16);
         try {
             ResultSet resultSet = getDatabaseMetaData().getPrimaryKeys(null, null, tableName);
             while (resultSet.next()) {

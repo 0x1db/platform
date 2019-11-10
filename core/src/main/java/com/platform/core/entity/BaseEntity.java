@@ -18,36 +18,6 @@ public class BaseEntity<T> implements Serializable {
      */
     protected Long id;
 
-    /**
-     * 创建时间
-     */
-    protected Long createDate;
-
-    /**
-     * 修改时间
-     */
-    protected Long modifyDate;
-
-    /**
-     * 创建人
-     */
-    protected Long creator;
-
-    /**
-     * 修改人
-     */
-    protected Long modifyer;
-
-    /**
-     * 删除标识 ：（0：删除 1：正常）
-     */
-    protected Integer delFlag;
-
-    /**
-     * 备注
-     */
-    protected String remark;
-
     public BaseEntity() {
 
     }
@@ -65,51 +35,4 @@ public class BaseEntity<T> implements Serializable {
         this.id = id;
     }
 
-    public Long getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(Long createDate) {
-        this.createDate = createDate;
-    }
-
-    public Long getModifyDate() {
-        return modifyDate;
-    }
-
-    public void setModifyDate(Long modifyDate) {
-        this.modifyDate = modifyDate;
-    }
-
-    public Long getCreator() {
-        return creator;
-    }
-
-    public void setCreator(Long creator) {
-        this.creator = creator;
-    }
-
-    public Long getModifyer() {
-        return modifyer;
-    }
-
-    public void setModifyer(Long modifyer) {
-        this.modifyer = modifyer;
-    }
-
-    public Integer getDelFlag() {
-        return delFlag;
-    }
-
-    public void setDelFlag(Integer delFlag) {
-        this.delFlag = delFlag;
-    }
-
-    public String getRemark() {
-        return remark;
-    }
-
-    public void setRemark(String remark) {
-        this.remark = remark;
-    }
 }
