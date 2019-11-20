@@ -10,8 +10,6 @@
         <result property="email" column="email" jdbcType="VARCHAR"/>
         <result property="createDate" column="create_date" jdbcType="BIGINT"/>
         <result property="modifyDate" column="modify_date" jdbcType="BIGINT"/>
-        <result property="creator" column="creator" jdbcType="BIGINT"/>
-        <result property="modifier" column="modifier" jdbcType="BIGINT"/>
         <result property="delFlag" column="del_flag" jdbcType="BIT"/>
         <!--property: 指的是属性的值, javaType：指的是属性的类型-->
         <association property="baseUserInfo" javaType="BaseUserInfo">
@@ -30,8 +28,6 @@
         sys_user.email,
         sys_user.create_date,
         sys_user.modify_date,
-        sys_user.creator,
-        sys_user.modifier,
         sys_user.del_flag
     </sql>
 
@@ -63,12 +59,6 @@
             </if>
             <if test="modifyDate!=null">
                 AND sys_user.modify_date = #{modifyDate,jdbcType=BIGINT}
-            </if>
-            <if test="creator!=null">
-                AND sys_user.creator = #{creator,jdbcType=BIGINT}
-            </if>
-            <if test="modifier!=null">
-                AND sys_user.modifier = #{modifier,jdbcType=BIGINT}
             </if>
             <if test="delFlag!=null">
                 AND sys_user.del_flag = #{delFlag,jdbcType=BIT}
@@ -106,12 +96,6 @@
             <if test="modifyDate!=null">
                 modify_date,
             </if>
-            <if test="creator!=null">
-                creator,
-            </if>
-            <if test="modifier!=null">
-                modifier,
-            </if>
             <if test="delFlag!=null">
                 del_flag,
             </if>
@@ -134,12 +118,6 @@
             </if>
             <if test="modifyDate!=null">
                 #{modifyDate,jdbcType=BIGINT},
-            </if>
-            <if test="creator!=null">
-                #{creator,jdbcType=BIGINT},
-            </if>
-            <if test="modifier!=null">
-                #{modifier,jdbcType=BIGINT},
             </if>
             <if test="delFlag!=null">
                 #{delFlag,jdbcType=BIT},
@@ -168,12 +146,6 @@
             </if>
             <if test="modifyDate!=null">
                 sys_user.modify_date = #{modifyDate,jdbcType=BIGINT},
-            </if>
-            <if test="creator!=null">
-                sys_user.creator = #{creator,jdbcType=BIGINT},
-            </if>
-            <if test="modifier!=null">
-                sys_user.modifier = #{modifier,jdbcType=BIGINT},
             </if>
             <if test="delFlag!=null">
                 sys_user.del_flag = #{delFlag,jdbcType=BIT},

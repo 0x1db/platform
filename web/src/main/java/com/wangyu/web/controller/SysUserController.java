@@ -4,8 +4,8 @@ import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Maps;
 import com.platform.core.entity.ResponseModel;
 import com.platform.core.web.controller.BaseController;
-import com.wangyu.web.domain.BaseUserInfo;
 import com.wangyu.web.domain.SysUser;
+import com.wangyu.web.dto.SysUserDTO;
 import com.wangyu.web.service.SysUserService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,12 +30,12 @@ public class SysUserController extends BaseController {
     /**
      * 新增后台用户
      *
-     * @param baseUserInfo
+     * @param sysUserDTO
      * @return
      */
     @PostMapping("/")
-    public ResponseModel addUser(@RequestBody BaseUserInfo baseUserInfo) {
-        sysUserService.insert(baseUserInfo);
+    public ResponseModel addUser(@RequestBody SysUserDTO sysUserDTO) {
+        sysUserService.insert(sysUserDTO);
         return this.buildSuccessResult();
     }
 

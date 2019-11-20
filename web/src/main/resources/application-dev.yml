@@ -28,5 +28,15 @@ logging:
         web:
           dao: debug
 
+#服务端口
 server:
   port: 8888
+
+#文件上传
+upload:
+  #头像
+  headImg:
+    #windows系统路径
+    win_location: D:/appfile_platform/images/
+    #linux系统路径
+    linux_location: /data/appfile/platform/headImages/

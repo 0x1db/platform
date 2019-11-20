@@ -2,17 +2,20 @@ package com.wangyu.web.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.platform.common.enums.UserTypeEnum;
 import com.platform.core.service.impl.BaseServiceImpl;
 import com.sun.org.apache.bcel.internal.generic.IF_ACMPEQ;
 import com.wangyu.web.dao.SysUserMapper;
 import com.wangyu.web.domain.BaseUserInfo;
 import com.wangyu.web.domain.SysUser;
+import com.wangyu.web.dto.SysUserDTO;
 import com.wangyu.web.service.BaseUserInfoService;
 import com.wangyu.web.service.SysUserService;
 import org.checkerframework.checker.units.qual.A;
 import org.hibernate.validator.constraints.EAN;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,14 +43,18 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser> implements SysU
     private BaseUserInfoService userInfoService;
 
     @Override
-    public int insert(BaseUserInfo baseUserInfo) {
-        userInfoService.insert(baseUserInfo);
+    public int insert(SysUserDTO sysUserDTO) {
+        BaseUserInfo userInfo = new BaseUserInfo();
+        BeanUtils.copyProperties(sysUserDTO, userInfo);
+        userInfo.setType(UserTypeEnum.MANAGE_USER);
+        userInfoService.insert(userInfo);
+
         SysUser sysUser = new SysUser();
         //基础用户信息ID
-        sysUser.setBaseUserId(baseUserInfo.getId());
+        BeanUtils.copyProperties(sysUserDTO, sysUser);
+        sysUser.setBaseUserId(userInfo.getId());
         sysUser.setCreateDate(System.currentTimeMillis());
-        sysUserMapper.insert(sysUser);
-        return 0;
+        return sysUserMapper.insert(sysUser);
     }
 
     @Override

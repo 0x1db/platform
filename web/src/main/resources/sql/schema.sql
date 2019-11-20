@@ -24,8 +24,6 @@ CREATE TABLE sys_user
     email        VARCHAR(30) DEFAULT NULL COMMENT '邮箱',
     create_date  BIGINT(10)  DEFAULT NULL COMMENT '创建时间',
     modify_date  BIGINT(10)  DEFAULT NULL COMMENT '修改时间',
-    creator      BIGINT(11)  DEFAULT NULL COMMENT '创建人',
-    modifier     BIGINT(11)  DEFAULT NULL COMMENT '修改人',
     del_flag     BIT         DEFAULT 0 COMMENT '删除标识（1：已删除 0：正常）',
     primary key (id)
 ) ENGINE = InnoDB
@@ -57,8 +55,6 @@ CREATE TABLE `sys_resource`
     icon        VARCHAR(20)  DEFAULT NULL COMMENT '图标',
     parent_id   BIGINT(11)   DEFAULT NULL COMMENT '父级ID',
     description VARCHAR(100) DEFAULT NULL COMMENT '描述',
-    creator     BIGINT(11)   DEFAULT NULL COMMENT '创建人',
-    modifier    BIGINT(11)   DEFAULT NULL COMMENT '修改人',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 1000

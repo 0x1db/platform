@@ -107,7 +107,7 @@ public class WebApplicationTests {
             userInfo.setType(UserTypeEnum.MANAGE_USER);
             userInfo.setStatus(StatusTypeEnum.NORMAL);
 
-            sysUserService.insert(userInfo);
+//            sysUserService.insert(userInfo);
 
         }
     }

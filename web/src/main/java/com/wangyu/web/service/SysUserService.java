@@ -4,6 +4,7 @@ import com.github.pagehelper.PageInfo;
 import com.platform.core.service.BaseService;
 import com.wangyu.web.domain.BaseUserInfo;
 import com.wangyu.web.domain.SysUser;
+import com.wangyu.web.dto.SysUserDTO;
 
 import java.util.Map;
 
@@ -17,10 +18,10 @@ public interface SysUserService extends BaseService<SysUser> {
     /**
      * 新增后台用户
      *
-     * @param userInfo 基础用户信息
+     * @param sysUserDTO 系统用户传输对象
      * @return
      */
-    int insert(BaseUserInfo userInfo);
+    int insert(SysUserDTO sysUserDTO);
 
     /**
      * 条件分页查询
