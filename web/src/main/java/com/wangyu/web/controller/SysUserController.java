@@ -7,6 +7,7 @@ import com.platform.core.web.controller.BaseController;
 import com.wangyu.web.domain.SysUser;
 import com.wangyu.web.dto.SysUserDTO;
 import com.wangyu.web.service.SysUserService;
+import javax.validation.Valid;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +22,7 @@ import java.util.Map;
  */
 @CrossOrigin
 @RestController
-@RequestMapping("/sys_user/")
+@RequestMapping("/sys_user")
 public class SysUserController extends BaseController {
 
     @Autowired
@@ -34,7 +35,7 @@ public class SysUserController extends BaseController {
      * @return
      */
     @PostMapping("/")
-    public ResponseModel addUser(@RequestBody SysUserDTO sysUserDTO) {
+    public ResponseModel addUser(@RequestBody @Valid SysUserDTO sysUserDTO) {
         sysUserService.insert(sysUserDTO);
         return this.buildSuccessResult();
     }
@@ -66,7 +67,6 @@ public class SysUserController extends BaseController {
     @DeleteMapping("/")
     public ResponseModel deleteUser(@RequestParam("id") String id) {
         if (StringUtils.isEmpty(id)) {
-
         }
         sysUserService.delete(id);
         return this.buildSuccessResult();
