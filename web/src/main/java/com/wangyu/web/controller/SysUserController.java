@@ -3,6 +3,7 @@ package com.wangyu.web.controller;
 import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Maps;
 import com.platform.core.entity.ResponseModel;
+import com.platform.core.entity.ResponseUtil;
 import com.platform.core.web.controller.BaseController;
 import com.wangyu.web.domain.SysUser;
 import com.wangyu.web.dto.SysUserDTO;
@@ -21,7 +22,7 @@ import java.util.Map;
  */
 @CrossOrigin
 @RestController
-@RequestMapping("/sys_user/")
+@RequestMapping("/sys_user")
 public class SysUserController extends BaseController {
 
     @Autowired
@@ -66,9 +67,25 @@ public class SysUserController extends BaseController {
     @DeleteMapping("/")
     public ResponseModel deleteUser(@RequestParam("id") String id) {
         if (StringUtils.isEmpty(id)) {
-
+            //异常处理
         }
         sysUserService.delete(id);
         return this.buildSuccessResult();
+    }
+
+    /**
+     * 根据ID查询后台用户详情
+     *
+     * @param id
+     * @return
+     */
+    @GetMapping("/{id}")
+    public ResponseModel findById(@PathVariable("id") String id) {
+        if (StringUtils.isEmpty(id)) {
+
+        }
+        SysUser sysUser = sysUserService.get(id);
+        SysUserDTO result = new SysUserDTO().convertFor(sysUser);
+        return ResponseUtil.success(result);
     }
 }

@@ -67,10 +67,13 @@
     </sql>
 
     <!-- 根据编号查询 -->
-    <select id="get" resultType="SysUser">
+    <select id="get" resultMap="sysUser_result_all">
         SELECT
-        <include refid="sysUser_column"/>
-        FROM sys_user
+        <include refid="sysUser_column"/>,
+        bu.status,bu.username
+        FROM sys_user sys_user
+        LEFT JOIN base_user_info bu
+        ON bu.id = sys_user.base_user_id
         WHERE sys_user.id = #{id,jdbcType=BIGINT}
     </select>
 

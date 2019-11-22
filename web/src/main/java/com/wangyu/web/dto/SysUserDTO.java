@@ -1,5 +1,9 @@
 package com.wangyu.web.dto;
 
+import com.google.common.base.Converter;
+import com.wangyu.web.domain.SysUser;
+import org.springframework.beans.BeanUtils;
+
 /**
  * 后台用户DTO对象
  *
@@ -109,5 +113,35 @@ public class SysUserDTO {
                 ", email='" + email + '\'' +
                 ", gender='" + gender + '\'' +
                 '}';
+    }
+
+    public SysUser convertToSysUser() {
+        SysUserDtoConvert sysUserDTOConvert = new SysUserDtoConvert();
+        SysUser sysUser = sysUserDTOConvert.convert(this);
+        return sysUser;
+    }
+
+    public SysUserDTO convertFor(SysUser sysUser) {
+        SysUserDtoConvert sysUserDTOConvert = new SysUserDtoConvert();
+        SysUserDTO sysUserDTO = sysUserDTOConvert.reverse().convert(sysUser);
+        return sysUserDTO;
+    }
+
+    private static class SysUserDtoConvert extends Converter<SysUserDTO, SysUser> {
+
+        @Override
+        protected SysUser doForward(SysUserDTO sysUserDTO) {
+            SysUser sysUser = new SysUser();
+            BeanUtils.copyProperties(sysUserDTO, sysUser);
+            return sysUser;
+        }
+
+        @Override
+        protected SysUserDTO doBackward(SysUser sysUser) {
+            SysUserDTO sysUserDTO = new SysUserDTO();
+            BeanUtils.copyProperties(sysUser, sysUserDTO);
+            BeanUtils.copyProperties(sysUser.getBaseUserInfo(), sysUserDTO);
+            return sysUserDTO;
+        }
     }
 }
