@@ -3,6 +3,8 @@ package com.wangyu.web.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.platform.core.entity.BaseEntity;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 /**
  * 后台用户领域对象
@@ -26,6 +28,7 @@ public class SysUser extends BaseEntity<SysUser> {
     /**
      * 性别(0:女 1:男 2:未知)
      */
+    @NotBlank(message = "性别不能为空")
     private String gender;
 
     /**

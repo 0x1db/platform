@@ -3,24 +3,22 @@ package com.wangyu.web.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.platform.common.enums.UserTypeEnum;
+import com.platform.core.entity.ResponseCode;
+import com.platform.core.exception.ParameterInvalidException;
 import com.platform.core.service.impl.BaseServiceImpl;
-import com.sun.org.apache.bcel.internal.generic.IF_ACMPEQ;
 import com.wangyu.web.dao.SysUserMapper;
 import com.wangyu.web.domain.BaseUserInfo;
 import com.wangyu.web.domain.SysUser;
 import com.wangyu.web.dto.SysUserDTO;
 import com.wangyu.web.service.BaseUserInfoService;
 import com.wangyu.web.service.SysUserService;
-import org.checkerframework.checker.units.qual.A;
-import org.hibernate.validator.constraints.EAN;
+import java.util.List;
+import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Map;
 
 /**
  * 后台用户服务层
@@ -31,43 +29,43 @@ import java.util.Map;
 @Service
 public class SysUserServiceImpl extends BaseServiceImpl<SysUser> implements SysUserService {
 
-    /**
-     * sl4j
-     */
-    private static final Logger LOGGER = LoggerFactory.getLogger(SysUserServiceImpl.class);
+  /**
+   * sl4j
+   */
+  private static final Logger LOGGER = LoggerFactory.getLogger(SysUserServiceImpl.class);
 
-    @Autowired
-    private SysUserMapper sysUserMapper;
+  @Autowired
+  private SysUserMapper sysUserMapper;
 
-    @Autowired
-    private BaseUserInfoService userInfoService;
+  @Autowired
+  private BaseUserInfoService userInfoService;
 
-    @Override
-    public int insert(SysUserDTO sysUserDTO) {
-        BaseUserInfo userInfo = new BaseUserInfo();
-        BeanUtils.copyProperties(sysUserDTO, userInfo);
-        userInfo.setType(UserTypeEnum.MANAGE_USER);
-        userInfoService.insert(userInfo);
+  @Override
+  public int insert(SysUserDTO sysUserDTO) {
+    BaseUserInfo userInfo = new BaseUserInfo();
+    BeanUtils.copyProperties(sysUserDTO, userInfo);
+    userInfo.setType(UserTypeEnum.MANAGE_USER);
+    userInfoService.insert(userInfo);
 
-        SysUser sysUser = new SysUser();
-        //基础用户信息ID
-        BeanUtils.copyProperties(sysUserDTO, sysUser);
-        sysUser.setBaseUserId(userInfo.getId());
-        sysUser.setCreateDate(System.currentTimeMillis());
-        return sysUserMapper.insert(sysUser);
-    }
+    SysUser sysUser = new SysUser();
+    //基础用户信息ID
+    BeanUtils.copyProperties(sysUserDTO, sysUser);
+    sysUser.setBaseUserId(userInfo.getId());
+    sysUser.setCreateDate(System.currentTimeMillis());
+    return sysUserMapper.insert(sysUser);
+  }
 
-    @Override
-    public PageInfo<SysUser> findPages(Map<String, Object> params) {
-        //分页查询排序条件 "字段 空格 排序方式"
-        String orderBy = "sys_user.create_date desc";
-        int pageSize = Integer.parseInt(String.valueOf(params.get("pageSize")));
-        int pageNum = Integer.parseInt(String.valueOf(params.get("pageNum")));
-        PageHelper.startPage(pageNum, pageSize, orderBy);
+  @Override
+  public PageInfo<SysUser> findPages(Map<String, Object> params) {
+    //分页查询排序条件 "字段 空格 排序方式"
+    String orderBy = "sys_user.create_date desc";
+    int pageSize = Integer.parseInt(String.valueOf(params.get("pageSize")));
+    int pageNum = Integer.parseInt(String.valueOf(params.get("pageNum")));
+    PageHelper.startPage(pageNum, pageSize, orderBy);
 
-        //编写xml分页方法 自定义多条件查询
-        List<SysUser> list = sysUserMapper.findPages(params);
-        PageInfo page = new PageInfo(list);
-        return page;
-    }
+    //编写xml分页方法 自定义多条件查询
+    List<SysUser> list = sysUserMapper.findPages(params);
+    PageInfo page = new PageInfo(list);
+    return page;
+  }
 }

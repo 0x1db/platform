@@ -4,6 +4,9 @@ import com.google.common.base.Converter;
 import com.wangyu.web.domain.SysUser;
 import org.springframework.beans.BeanUtils;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+
 /**
  * 后台用户DTO对象
  *
@@ -34,11 +37,14 @@ public class SysUserDTO {
     /**
      * 头像
      */
+    @NotBlank(message = "头像不能为空")
     private String headImg;
 
     /**
      * 邮箱
      */
+    @Email
+    @NotBlank(message = "邮箱不能为空")
     private String email;
 
     /**
