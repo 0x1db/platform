@@ -11,4 +11,8 @@ import com.wangyu.web.domain.BaseUserInfo;
  */
 public interface BaseUserInfoService extends BaseService<BaseUserInfo> {
 
+  /**
+   * 根据用户账号查询
+   */
+  BaseUserInfo findByUsername(String username);
 }

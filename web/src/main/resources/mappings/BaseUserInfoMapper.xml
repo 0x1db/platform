@@ -169,4 +169,11 @@
         <include refid="baseUserInfo_query_param"/>
     </select>
 
+    <!--根据用户名查询-->
+    <select id="findByUsername" resultType="BaseUserInfo" parameterType="String">
+        SELECT
+        <include refid="baseUserInfo_column"/>
+        FROM base_user_info
+        WHERE username = #{username,jdbcType=VARCHAR}
+    </select>
 </mapper>

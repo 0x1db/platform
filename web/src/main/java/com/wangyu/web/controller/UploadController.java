@@ -25,7 +25,7 @@ import java.io.IOException;
 public class UploadController extends BaseController {
 
     @Value("${upload.headImg.win_location}")
-    private String WIN_LOCATION;
+    private String winLocation;
 
     /**
      * 头像上传
@@ -35,7 +35,7 @@ public class UploadController extends BaseController {
         try {
             FileInputStream inputStream = (FileInputStream) file.getInputStream();
             String name = file.getOriginalFilename();
-            String filePath = FileUploadUtils.uploadImg(inputStream, WIN_LOCATION, name);
+          String filePath = FileUploadUtils.uploadImg(inputStream, winLocation, name);
             return ResponseUtil.success(filePath);
         } catch (IOException e) {
             e.printStackTrace();

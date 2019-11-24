@@ -17,7 +17,10 @@ public enum ResponseCode {
   SUCCESS("200", "成功"),
   //未指明通用异常
   UNSPECIFIED("500", "网络异常，请稍后再试"),
-  BAD_REQUEST("405", "请求方法或参数异常"),
+  BAD_REQUEST("400", "错误的请求"),
+  NOT_AUTHORIZED("401", "未授权"),
+  NOT_SUPPORT_METHOD("405", "请求方法或参数异常"),
+  NOT_FOUND("404", "未找到访问资源"),
 
   /**
    * 参数错误 1001-1999
@@ -41,7 +44,9 @@ public enum ResponseCode {
 
   USER_NOT_EXIST("2004", "用户不存在"),
 
-  USER_HAS_EXISTED("2005", "用户已存在");
+  USER_HAS_EXISTED("2005", "用户已存在"),
+
+  USER_NOT_ROLES("2006", "用户角色信息异常");
 
   private String code;
   private String desc;

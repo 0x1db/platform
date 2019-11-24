@@ -2,6 +2,7 @@ package com.wangyu.web.dao;
 
 import com.platform.core.persistence.BaseMapper;
 import com.wangyu.web.domain.Role;
+import java.util.Set;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -14,4 +15,8 @@ import org.apache.ibatis.annotations.Mapper;
 public interface RoleMapper extends BaseMapper<Role> {
 
 
+  /**
+   * 根据用户ID查询角色信息
+   */
+  Set<Role> findByUserId(Long userId);
 }

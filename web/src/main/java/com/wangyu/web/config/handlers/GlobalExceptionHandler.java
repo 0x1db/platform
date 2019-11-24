@@ -6,10 +6,15 @@ import com.platform.core.entity.ResponseUtil;
 import com.platform.core.exception.ParameterInvalidException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.TypeMismatchException;
 import org.springframework.validation.BindException;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.servlet.NoHandlerFoundException;
 
 /**
  * 全局异常处理
@@ -23,32 +28,27 @@ public class GlobalExceptionHandler {
   /**
    * slf4j
    */
-  private Logger LOG = LoggerFactory.getLogger(this.getClass());
+  private static final Logger LOG = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
   /**
    * 参数校验异常
-   *
-   * @param pe
-   * @return
    */
   @ExceptionHandler(value = ParameterInvalidException.class)
-  public ResponseModel ParameterInvalidException(ParameterInvalidException pe) {
+  public ResponseModel parameterInvalidException(ParameterInvalidException pe) {
     LOG.error(pe.getMessage(), pe);
+    pe.printStackTrace();
     return ResponseUtil.error(pe.getResponseCode(), pe.getMessage());
   }
 
   /**
-   * 请求参数异常（hibernate-validate）
-   *
-   * @param be
-   * @return
+   * 请求参数校验异常（hibernate-validate）
    */
   @ExceptionHandler(value = BindException.class)
-  public ResponseModel ParameterInvalidException(BindException be) {
+  public ResponseModel parameterInvalidException(BindException be) {
     LOG.error(be.getMessage(), be);
     String errorMessage = be.getFieldError().getDefaultMessage();
-    LOG.error(errorMessage);
-    return ResponseUtil.error(ResponseCode.BAD_REQUEST, be.getMessage());
+    be.printStackTrace();
+    return ResponseUtil.error(ResponseCode.NOT_SUPPORT_METHOD, errorMessage);
   }
 
   /**
@@ -57,6 +57,63 @@ public class GlobalExceptionHandler {
   @ExceptionHandler(MethodArgumentNotValidException.class)
   public ResponseModel handlerArgumentNotValidException(MethodArgumentNotValidException me) {
     LOG.error(me.getMessage(), me);
-    return ResponseUtil.error(ResponseCode.BAD_REQUEST, me.getMessage());
+    me.printStackTrace();
+    return ResponseUtil.error(ResponseCode.NOT_SUPPORT_METHOD, me.getMessage());
+  }
+
+  /**
+   * 拦截405请求 对于方法调用错误或者资源路径错误进行统一处理
+   */
+  @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+  public ResponseModel httpRequestMethodNotSupportedException(
+      HttpRequestMethodNotSupportedException hme) {
+    LOG.error(hme.getMessage(), hme);
+    hme.printStackTrace();
+    return ResponseUtil
+        .error(ResponseCode.BAD_REQUEST, "Method " + hme.getMethod() + " is not supported");
+  }
+
+  /**
+   * 拦截404请求 对于请求资源不存在的请求返回异常信息统一处理 TODO 暂时无效
+   */
+  @ExceptionHandler(NoHandlerFoundException.class)
+  public ResponseModel notFoundPage404(NoHandlerFoundException ne) {
+    LOG.error(ne.getMessage(), ne);
+    ne.printStackTrace();
+    return ResponseUtil.error(ResponseCode.NOT_FOUND, "No access resource found");
+  }
+
+  /**
+   * 400错误，bad request
+   */
+  @ExceptionHandler(IllegalArgumentException.class)
+  public ResponseModel badRequestException(IllegalArgumentException ie) {
+    LOG.error(ie.getMessage(), ie);
+    ie.printStackTrace();
+    return ResponseUtil.error(ResponseCode.BAD_REQUEST, "bad request");
+  }
+
+  /**
+   * 拦截参数不匹配异常 400 getPropertyName()获取数据类型不匹配参数名称  getRequiredType()实际要求客户端传递的数据类型
+   */
+  @ExceptionHandler(value = TypeMismatchException.class)
+  public ResponseModel requestTypeMismatch(TypeMismatchException ex) {
+    //拼接详细错误信息
+    StringBuilder sb = new StringBuilder();
+    sb.append("参数类型不匹配,参数：").append(ex.getPropertyName());
+    sb.append("类型应该为：" + ex.getRequiredType());
+    LOG.error(ex.getMessage(), ex);
+    ex.printStackTrace();
+    return ResponseUtil.error(ResponseCode.BAD_REQUEST, sb.toString());
+  }
+
+  /**
+   * 缺少参数异常 getParameterName() 缺少的参数名称 400
+   */
+  @ExceptionHandler(value = MissingServletRequestParameterException.class)
+  public ResponseModel requestMissingServletRequest(MissingServletRequestParameterException ex) {
+    LOG.error(ex.getMessage(), ex);
+    ex.printStackTrace();
+    return ResponseUtil.error(ResponseCode.BAD_REQUEST, "缺少必要参数,参数名称为：" + ex.getParameterName());
   }
 }

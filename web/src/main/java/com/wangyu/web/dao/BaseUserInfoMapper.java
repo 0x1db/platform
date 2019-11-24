@@ -16,4 +16,11 @@ import org.springframework.stereotype.Repository;
 public interface BaseUserInfoMapper extends BaseMapper<BaseUserInfo> {
 
 
+  /**
+   * 根据用户名查询
+   *
+   * @param username 用户名
+   * @return BaseUserInfo 基础用户实体
+   */
+  BaseUserInfo findByUsername(String username);
 }

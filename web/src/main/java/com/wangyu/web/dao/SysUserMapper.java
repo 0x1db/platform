@@ -17,11 +17,13 @@ import java.util.Map;
 public interface SysUserMapper extends BaseMapper<SysUser> {
 
 
-    /**
-     * 条件分页查询
-     *
-     * @param params
-     * @return
-     */
-    List<SysUser> findPages(Map<String, Object> params);
+  /**
+   * 条件分页查询
+   */
+  List<SysUser> findPages(Map<String, Object> params);
+
+  /**
+   * 根据基本用户ID查询系统用户信息
+   */
+  SysUser findByBaseUserInfoId(Long baseUserId);
 }

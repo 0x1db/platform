@@ -5,6 +5,7 @@ import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import org.hibernate.validator.HibernateValidator;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 /**
  * hibernate-validate 校验配置
@@ -12,6 +13,7 @@ import org.springframework.context.annotation.Bean;
  * @Author wangyu
  * @Date 2019-11-22 17:25
  */
+@Configuration
 public class ValidatorConfig {
 
   /**

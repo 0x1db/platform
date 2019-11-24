@@ -12,8 +12,7 @@ public class ParameterInvalidException extends BusinessException {
 
   private static final long serialVersionUID = 3344425353133882158L;
 
-  public ParameterInvalidException(String message,
-      ResponseCode responseCode) {
+  public ParameterInvalidException(ResponseCode responseCode, String message) {
     super(message, responseCode);
   }
 
@@ -23,5 +22,13 @@ public class ParameterInvalidException extends BusinessException {
 
   public ParameterInvalidException(ResponseCode responseCode) {
     super(responseCode);
+  }
+
+  /**
+   * 重写堆栈填充，不填充错误堆栈信息，提高性能
+   */
+  @Override
+  public synchronized Throwable fillInStackTrace() {
+    return this;
   }
 }

@@ -12,12 +12,17 @@ import com.wangyu.web.domain.SysUser;
 import com.wangyu.web.dto.SysUserDTO;
 import com.wangyu.web.service.BaseUserInfoService;
 import com.wangyu.web.service.SysUserService;
+
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
+
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 /**
@@ -39,17 +44,20 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser> implements SysU
 
   @Autowired
   private BaseUserInfoService userInfoService;
+  @Autowired
+  private BCryptPasswordEncoder bCryptPasswordEncoder;
 
   @Override
   public int insert(SysUserDTO sysUserDTO) {
     BaseUserInfo userInfo = new BaseUserInfo();
     BeanUtils.copyProperties(sysUserDTO, userInfo);
     userInfo.setType(UserTypeEnum.MANAGE_USER);
+    userInfo.setPassword(bCryptPasswordEncoder.encode(userInfo.getPassword()));
+    LOGGER.info("加密密码[{}]", bCryptPasswordEncoder.encode(userInfo.getPassword()));
     userInfoService.insert(userInfo);
 
-    SysUser sysUser = new SysUser();
     //基础用户信息ID
-    BeanUtils.copyProperties(sysUserDTO, sysUser);
+    SysUser sysUser = sysUserDTO.convertToSysUser();
     sysUser.setBaseUserId(userInfo.getId());
     sysUser.setCreateDate(System.currentTimeMillis());
     return sysUserMapper.insert(sysUser);
@@ -67,5 +75,34 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser> implements SysU
     List<SysUser> list = sysUserMapper.findPages(params);
     PageInfo page = new PageInfo(list);
     return page;
+  }
+
+  @Override
+  public void update(SysUserDTO sysUserDTO) {
+    if (sysUserDTO.getBaseUserId() == null || sysUserDTO.getId() == null) {
+      throw new ParameterInvalidException(ResponseCode.PARAM_IS_BLANK,
+          "baseInfoId and id is not be null");
+    }
+    BaseUserInfo userInfo = userInfoService.get(sysUserDTO.getBaseUserId());
+    BeanUtils.copyProperties(sysUserDTO, userInfo);
+    userInfo.setType(UserTypeEnum.MANAGE_USER);
+    userInfoService.update(userInfo);
+
+    SysUser sysUser = sysUserMapper.get(sysUserDTO.getId());
+    sysUser.setGender(sysUserDTO.getGender());
+    sysUser.setHeadImg(sysUserDTO.getHeadImg());
+    sysUser.setEmail(sysUserDTO.getEmail());
+    sysUser.setModifyDate(System.currentTimeMillis());
+
+    sysUserMapper.update(sysUser);
+  }
+
+  @Override
+  public SysUser findByBaseUserInfoId(Long baseUserId) {
+    if (baseUserId == null) {
+      throw new ParameterInvalidException(ResponseCode.PARAM_IS_BLANK,
+          "baseInfoId and id is not be null");
+    }
+    return sysUserMapper.findByBaseUserInfoId(baseUserId);
   }
 }

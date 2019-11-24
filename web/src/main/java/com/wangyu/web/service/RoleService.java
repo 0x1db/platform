@@ -2,6 +2,7 @@ package com.wangyu.web.service;
 
 import com.platform.core.service.BaseService;
 import com.wangyu.web.domain.Role;
+import java.util.Set;
 
 /**
  * 角色信息服务层
@@ -11,4 +12,11 @@ import com.wangyu.web.domain.Role;
  */
 public interface RoleService extends BaseService<Role> {
 
+  /**
+   * 根据用户ID查询角色信息
+   *
+   * @param userId 用户ID
+   * @return 角色集合
+   */
+  Set<Role> findByUserId(Long userId);
 }

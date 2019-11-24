@@ -15,9 +15,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class WebMvcConfig implements WebMvcConfigurer {
 
     @Value("${upload.headImg.win_location}")
-    private String win_location;
+    private String winLocation;
     @Value("${upload.headImg.linux_location}")
-    private String linux_location;
+    private String linuxLocation;
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -25,9 +25,10 @@ public class WebMvcConfig implements WebMvcConfigurer {
         if (!registry.hasMappingForPattern("/static/**")) {
             String property = System.getProperty("os.name");
             if (property.startsWith("Win")) {
-                registry.addResourceHandler("/static/**").addResourceLocations("file:" + win_location);
+              registry.addResourceHandler("/static/**").addResourceLocations("file:" + winLocation);
             } else {
-                registry.addResourceHandler("/static/**").addResourceLocations("file:" + linux_location);
+              registry.addResourceHandler("/static/**")
+                  .addResourceLocations("file:" + linuxLocation);
             }
         }
     }

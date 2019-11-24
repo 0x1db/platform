@@ -12,8 +12,7 @@ public class UserVerificationException extends BusinessException {
 
   private static final long serialVersionUID = -6748320324761801180L;
 
-  public UserVerificationException(String message,
-      ResponseCode responseCode) {
+  public UserVerificationException(ResponseCode responseCode, String message) {
     super(message, responseCode);
   }
 
@@ -23,5 +22,13 @@ public class UserVerificationException extends BusinessException {
 
   public UserVerificationException(ResponseCode responseCode) {
     super(responseCode);
+  }
+
+  /**
+   * 重写堆栈填充，不填充错误堆栈信息，提高性能
+   */
+  @Override
+  public synchronized Throwable fillInStackTrace() {
+    return this;
   }
 }
