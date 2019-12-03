@@ -232,10 +232,10 @@
     </select>
 
     <!--根据baseUserInfoId查询系统用户-->
-    <select id="findByBaseUserInfoId" resultType="SysUser" parameterType="String">
+  <select id="findByBaseUserInfoId" resultType="SysUser" parameterType="java.lang.Long">
         SELECT
         <include refid="sysUser_column"/>
         FROM sys_user
-        WHERE base_user_id = #{baseUserId,jdbcType=VARCHAR}
+    WHERE base_user_id = #{baseUserId,jdbcType=BIGINT}
     </select>
 </mapper>

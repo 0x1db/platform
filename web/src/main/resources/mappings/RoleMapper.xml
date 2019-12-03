@@ -141,4 +141,11 @@
         <include refid="role_query_param"/>
     </select>
 
+  <select id="findByUserId" resultType="Role" parameterType="java.lang.Long">
+    SELECT
+    <include refid="role_column"/>
+    FROM sys_role
+    LEFT JOIN sys_user_roles syr ON syr.role_id = sys_role.id
+    WHERE syr.user_id = #{userId,jdbcType=BIGINT}
+  </select>
 </mapper>

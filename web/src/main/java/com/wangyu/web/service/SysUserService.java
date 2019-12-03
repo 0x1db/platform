@@ -32,11 +32,16 @@ public interface SysUserService extends BaseService<SysUser> {
 
   /**
    * 修改后台用户信息
+   *
+   * @param sysUserDTO 用户传输类
    */
   void update(SysUserDTO sysUserDTO);
 
   /**
    * 根据基本用户ID查询系统用户ID
+   *
+   * @param baseUserId 基本用户ID
+   * @return SysUser
    */
   SysUser findByBaseUserInfoId(Long baseUserId);
 }

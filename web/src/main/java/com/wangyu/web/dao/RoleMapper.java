@@ -17,6 +17,9 @@ public interface RoleMapper extends BaseMapper<Role> {
 
   /**
    * 根据用户ID查询角色信息
+   *
+   * @param userId 系统用户ID
+   * @return set
    */
   Set<Role> findByUserId(Long userId);
 }

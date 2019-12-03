@@ -45,12 +45,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     List<SimpleGrantedAuthority> authorities = Lists.newArrayList();
 
     //获取用户角色信息
-    Set<Role> roles = roleService.findByUserId(userInfo.getId());
+    Set<Role> roles = roleService.findByUserId(sysUser.getId());
     if (roles == null || roles.isEmpty()) {
       throw new UserVerificationException(ResponseCode.USER_NOT_ROLES);
     }
     roles.forEach(role -> {
-      SimpleGrantedAuthority authoritie = new SimpleGrantedAuthority(role.getName());
+      SimpleGrantedAuthority authoritie = new SimpleGrantedAuthority(role.getFlag());
       authorities.add(authoritie);
     });
     return new JwtUser(userInfo, authorities);

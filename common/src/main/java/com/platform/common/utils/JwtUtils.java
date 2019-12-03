@@ -3,7 +3,11 @@ package com.platform.common.utils;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * JWT工具类
@@ -19,19 +23,31 @@ public class JwtUtils {
   private static final String SECRET = "jwtsecretdemo";
   private static final String ISS = "echisan";
 
-  // 过期时间是3600秒，既是1个小时
+  /**
+   * 过期时间是3600秒，既是1个小时
+   */
   private static final long EXPIRATION = 3600L;
 
-  // 选择了记住我之后的过期时间为7天
+  /**
+   * 选择了记住我之后的过期时间为7天
+   */
   private static final long EXPIRATION_REMEMBER = 604800L;
+
+  /**
+   * 添加角色的key
+   */
+  private static final String ROLE_CLAIMS = "rol";
 
   /**
    * 创建token
    */
-  public static String createToken(String username, boolean isRememberMe) {
+  public static String createToken(String username, boolean isRememberMe, String... roles) {
     long expiration = isRememberMe ? EXPIRATION_REMEMBER : EXPIRATION;
+    Map<String, Object> map = new HashMap<>(16);
+    map.put(ROLE_CLAIMS, roles);
     return Jwts.builder()
         .signWith(SignatureAlgorithm.HS512, SECRET)
+        .setClaims(map)
         .setIssuer(ISS)
         .setSubject(username)
         .setIssuedAt(new Date())
@@ -44,6 +60,17 @@ public class JwtUtils {
    */
   public static String getUsername(String token) {
     return getTokenBody(token).getSubject();
+  }
+
+  /**
+   * 获取用户角色
+   *
+   * @param token token参数
+   * @return roles
+   */
+  public static List<String> getUserRoles(String token) {
+    ArrayList<String> list = (ArrayList) getTokenBody(token).get(ROLE_CLAIMS);
+    return list;
   }
 
   /**

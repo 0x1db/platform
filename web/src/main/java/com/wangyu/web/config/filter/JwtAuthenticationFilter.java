@@ -1,6 +1,7 @@
 package com.wangyu.web.config.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.collect.Lists;
 import com.platform.common.utils.JwtUtils;
 import com.platform.core.entity.ResponseCode;
 import com.platform.core.entity.ResponseModel;
@@ -9,6 +10,9 @@ import com.wangyu.web.domain.BaseUserInfo;
 import com.wangyu.web.domain.JwtUser;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +22,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
@@ -69,8 +74,18 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     // 查看源代码会发现调用getPrincipal()方法会返回一个实现了`UserDetails`接口的对象
     // 所以就是JwtUser啦
     JwtUser jwtUser = (JwtUser) authResult.getPrincipal();
-    System.out.println("jwtUser:" + jwtUser.toString());
-    String token = JwtUtils.createToken(jwtUser.getUsername(), false);
+    Collection<? extends GrantedAuthority> authorities = jwtUser.getAuthorities();
+    String[] roles = new String[authorities.size()];
+    Iterator<? extends GrantedAuthority> iterator = authorities.iterator();
+    while (iterator.hasNext()) {
+      GrantedAuthority authority = iterator.next();
+      int i = 0;
+      roles[i] = authority.getAuthority();
+      i++;
+    }
+
+    String token = JwtUtils
+        .createToken(jwtUser.getUsername(), false, roles);
     // 返回创建成功的token
     // 但是这里创建的token只是单纯的token
     // 按照jwt的规定，最后请求的格式应该是 `Bearer token`

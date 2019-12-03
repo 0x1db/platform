@@ -1,14 +1,19 @@
 package com.wangyu.web.config.filter;
 
+import com.google.common.collect.Lists;
 import com.platform.common.utils.JwtUtils;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
@@ -47,8 +52,18 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
   private UsernamePasswordAuthenticationToken getAuthentication(String tokenHeader) {
     String token = tokenHeader.replace(JwtUtils.TOKEN_PREFIX, "");
     String username = JwtUtils.getUsername(token);
+    //获取角色信息
+    List<String> userRoles = JwtUtils.getUserRoles(token);
+    //封装角色信息到UsernamePasswordAuthenticationToken中
+    List<SimpleGrantedAuthority> authorities = Lists.newArrayList();
+    userRoles.forEach(role -> {
+      SimpleGrantedAuthority authoritie = new SimpleGrantedAuthority(role);
+      authorities.add(authoritie);
+    });
+
     if (username != null) {
-      return new UsernamePasswordAuthenticationToken(username, null, new ArrayList<>());
+      return new UsernamePasswordAuthenticationToken(username, null,
+          authorities);
     }
     return null;
   }

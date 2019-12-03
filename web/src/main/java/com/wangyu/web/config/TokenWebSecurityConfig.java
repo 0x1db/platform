@@ -52,9 +52,9 @@ public class TokenWebSecurityConfig extends WebSecurityConfigurerAdapter {
     http.cors().and().csrf().disable()
         .authorizeRequests()
         // 测试用资源，需要验证了的用户才能访问
-        .antMatchers("/test/**").authenticated()
+        .antMatchers("/test/**").permitAll()
         // 其他都放行了
-        .anyRequest().permitAll()
+        .anyRequest().authenticated()
         .and()
         .addFilter(new JwtAuthenticationFilter(authenticationManager()))
         .addFilter(new JwtAuthorizationFilter(authenticationManager()))

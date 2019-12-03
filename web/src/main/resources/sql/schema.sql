@@ -61,7 +61,7 @@ CREATE TABLE `sys_resource`
   DEFAULT CHARSET = utf8 COMMENT ='资源表';
 
 #### 角色与用户信息中间表
-DROP TABLE IF EXISTS 'sys_user_roles';
+DROP TABLE IF EXISTS `sys_user_roles`;
 CREATE TABLE `sys_user_roles`
 (
     id      BIGINT(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
