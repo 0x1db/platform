@@ -2,6 +2,7 @@ package com.wangyu.web.domain;
 
 
 import com.platform.core.entity.BaseEntity;
+import javax.validation.constraints.NotBlank;
 
 /**
  * 角色信息领域对象
@@ -15,11 +16,13 @@ public class Role extends BaseEntity<Role> {
     /**
      * 名称
      */
+    @NotBlank(message = "角色名不能为空")
     private String name;
 
     /**
      * 标识
      */
+    @NotBlank(message = "角色表示不能为空")
     private String flag;
 
     /**

@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wangyu.web.dao.ResourceMapper">
+  <resultMap id="resource_result" type="Resource">
+    <result property="id" column="id" jdbcType="BIGINT"/>
+    <result property="name" column="name" jdbcType="VARCHAR"/>
+    <result property="flag" column="flag" jdbcType="VARCHAR"/>
+    <result property="url" column="url" jdbcType="VARCHAR"/>
+    <result property="type" column="type" jdbcType="VARCHAR"/>
+    <result property="icon" column="icon" jdbcType="VARCHAR"/>
+    <result property="parentId" column="parent_id" jdbcType="BIGINT"/>
+    <result property="description" column="description" jdbcType="VARCHAR"/>
+  </resultMap>
+
+  <sql id="resource_column">
+            sys_resource.id,
+            sys_resource.name,
+            sys_resource.flag,
+            sys_resource.url,
+            sys_resource.type,
+            sys_resource.icon,
+            sys_resource.parent_id,
+            sys_resource.description
+        </sql>
+
+  <sql id="resource_query_param">
+    <trim prefix="WHERE" prefixOverrides="AND|OR">
+      <if test="id!=null">
+        AND sys_resource.id = #{id}
+      </if>
+      <if test="ids!=null">
+        AND sys_resource.id IN
+        <foreach collection="ids" item="id" open="(" close=")" separator=",">
+          #{id}
+        </foreach>
+      </if>
+      <if test="name!=null and ''!=name">
+        AND sys_resource.name = #{name}
+      </if>
+      <if test="flag!=null and ''!=flag">
+        AND sys_resource.flag = #{flag}
+      </if>
+      <if test="url!=null and ''!=url">
+        AND sys_resource.url = #{url}
+      </if>
+      <if test="type!=null and ''!=type">
+        AND sys_resource.type = #{type}
+      </if>
+      <if test="icon!=null and ''!=icon">
+        AND sys_resource.icon = #{icon}
+      </if>
+      <if test="parentId!=null">
+        AND sys_resource.parent_id = #{parentId}
+      </if>
+      <if test="description!=null and ''!=description">
+        AND sys_resource.description = #{description}
+      </if>
+    </trim>
+  </sql>
+
+  <!-- 根据编号查询 -->
+  <select id="get" resultType="Resource">
+    SELECT
+    <include refid="resource_column"/>
+    FROM sys_resource
+    WHERE sys_resource.id = #{id}
+  </select>
+
+  <!-- 插入-->
+  <insert id="insert">
+    INSERT INTO sys_resource
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="name!=null and ''!=name">
+        name,
+      </if>
+      <if test="flag!=null and ''!=flag">
+        flag,
+      </if>
+      <if test="url!=null and ''!=url">
+        url,
+      </if>
+      <if test="type!=null and ''!=type">
+        type,
+      </if>
+      <if test="icon!=null and ''!=icon">
+        icon,
+      </if>
+      <if test="parentId!=null">
+        parent_id,
+      </if>
+      <if test="description!=null and ''!=description">
+        description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="name!=null and ''!=name">
+        #{name},
+      </if>
+      <if test="flag!=null and ''!=flag">
+        #{flag},
+      </if>
+      <if test="url!=null and ''!=url">
+        #{url},
+      </if>
+      <if test="type!=null and ''!=type">
+        #{type},
+      </if>
+      <if test="icon!=null and ''!=icon">
+        #{icon},
+      </if>
+      <if test="parentId!=null">
+        #{parentId},
+      </if>
+      <if test="description!=null and ''!=description">
+        #{description},
+      </if>
+    </trim>
+  </insert>
+
+  <!-- 修改 -->
+  <update id="update">
+    UPDATE sys_resource
+    <trim prefix="SET" suffixOverrides=",">
+      <if test="name!=null and ''!=name">
+        sys_resource.name = #{name},
+      </if>
+      <if test="flag!=null and ''!=flag">
+        sys_resource.flag = #{flag},
+      </if>
+      <if test="url!=null and ''!=url">
+        sys_resource.url = #{url},
+      </if>
+      <if test="type!=null and ''!=type">
+        sys_resource.type = #{type},
+      </if>
+      <if test="icon!=null and ''!=icon">
+        sys_resource.icon = #{icon},
+      </if>
+      <if test="parentId!=null">
+        sys_resource.parent_id = #{parentId},
+      </if>
+      <if test="description!=null and ''!=description">
+        sys_resource.description = #{description},
+      </if>
+    </trim>
+    WHERE sys_resource.id = #{id}
+  </update>
+
+  <!-- 删除-->
+  <delete id="delete">
+        DELETE FROM sys_resource WHERE id = #{id}
+    </delete>
+
+  <!-- 批量删除-->
+  <delete id="batchDelete">
+    DELETE FROM sys_resource
+    WHERE id IN
+    <foreach collection="array" item="id" open="(" close=")" separator=",">
+      #{id}
+    </foreach>
+  </delete>
+
+  <!-- 查询列表-->
+  <select id="findList" resultType="Resource" parameterType="java.util.HashMap">
+    SELECT
+    <include refid="resource_column"/>
+    FROM sys_resource
+    <include refid="resource_query_param"/>
+  </select>
+
+
+  <!-- 根据给定的ids查询列表-->
+  <select id="findByIds" resultType="Resource">
+    SELECT
+    <include refid="resource_column"/>
+    FROM sys_resource
+    WHERE id IN
+    <foreach collection="array" item="id" open="(" close=")" separator=",">
+      #{id}
+    </foreach>
+  </select>
+
+  <!-- 查询单个实例-->
+  <select id="findOne" resultType="Resource" parameterType="java.util.HashMap">
+    SELECT
+    <include refid="resource_column"/>
+    FROM sys_resource
+    <include refid="resource_query_param"/>
+  </select>
+
+  <!-- 统计个数-->
+  <select id="countNums" resultType="long" parameterType="java.util.HashMap">
+    SELECT count(1)
+    FROM sys_resource
+    <include refid="resource_query_param"/>
+  </select>
+
+</mapper>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wangyu.web.dao.RoleMapper">
     <resultMap id="role_result" type="Role">
         <result property="id" column="id" jdbcType="BIGINT"/>
@@ -141,6 +142,7 @@
         <include refid="role_query_param"/>
     </select>
 
+    <!--根据UserID查询-->
   <select id="findByUserId" resultType="Role" parameterType="java.lang.Long">
     SELECT
     <include refid="role_column"/>
@@ -148,4 +150,9 @@
     LEFT JOIN sys_user_roles syr ON syr.role_id = sys_role.id
     WHERE syr.user_id = #{userId,jdbcType=BIGINT}
   </select>
+
+    <!--根据ResourceId查询-->
+    <select id="findByResourceId" resultType="Role" parameterType="java.lang.Long">
+
+    </select>
 </mapper>

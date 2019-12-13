@@ -57,8 +57,8 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
     //封装角色信息到UsernamePasswordAuthenticationToken中
     List<SimpleGrantedAuthority> authorities = Lists.newArrayList();
     userRoles.forEach(role -> {
-      SimpleGrantedAuthority authoritie = new SimpleGrantedAuthority(role);
-      authorities.add(authoritie);
+      SimpleGrantedAuthority authority = new SimpleGrantedAuthority(role);
+      authorities.add(authority);
     });
 
     if (username != null) {

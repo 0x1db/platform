@@ -1,11 +1,14 @@
 package com.wangyu.web.service.impl;
 
+import com.google.common.collect.Maps;
 import com.platform.core.entity.ResponseCode;
 import com.platform.core.exception.ParameterInvalidException;
 import com.platform.core.service.impl.BaseServiceImpl;
 import com.wangyu.web.dao.RoleMapper;
 import com.wangyu.web.domain.Role;
 import com.wangyu.web.service.RoleService;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,5 +38,13 @@ public class RoleServiceImpl extends BaseServiceImpl<Role> implements RoleServic
       throw new ParameterInvalidException(ResponseCode.PARAM_IS_BLANK, "用户ID不能为空");
     }
     return roleMapper.findByUserId(userId);
+  }
+
+  @Override
+  public List<Role> findByResourceId(Long resourceId) {
+    if (resourceId == null) {
+      throw new ParameterInvalidException(ResponseCode.PARAM_IS_BLANK);
+    }
+    return roleMapper.findByResourceId(resourceId);
   }
 }

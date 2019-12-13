@@ -2,8 +2,10 @@ package com.wangyu.web.dao;
 
 import com.platform.core.persistence.BaseMapper;
 import com.wangyu.web.domain.Role;
+import java.util.List;
 import java.util.Set;
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
 
 /**
  * 角色信息 持久层Mapper
@@ -12,6 +14,7 @@ import org.apache.ibatis.annotations.Mapper;
  * @date 2019-11-05 00:45
  */
 @Mapper
+@Repository
 public interface RoleMapper extends BaseMapper<Role> {
 
 
@@ -22,4 +25,12 @@ public interface RoleMapper extends BaseMapper<Role> {
    * @return set
    */
   Set<Role> findByUserId(Long userId);
+
+  /**
+   * 根据资源ID查询角色信息
+   *
+   * @param resourceId
+   * @return
+   */
+  List<Role> findByResourceId(Long resourceId);
 }

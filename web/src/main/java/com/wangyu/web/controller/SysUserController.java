@@ -40,7 +40,7 @@ public class SysUserController extends BaseController {
   /**
    * 注册后台用户
    */
-  @PostMapping("/")
+  @PostMapping("/register")
   public ResponseModel addUser(@RequestBody @Valid SysUserDTO sysUserDTO) {
     sysUserService.insert(sysUserDTO);
     return this.buildSuccessResult();
@@ -91,5 +91,13 @@ public class SysUserController extends BaseController {
     return this.buildSuccessResult();
   }
 
-
+  /**
+   * 用户授权
+   */
+  @PostMapping("/roleSetup")
+  public ResponseModel roleSetup(@RequestParam("userId") Long userId,
+      @RequestParam("roleId") Long roleId) {
+    sysUserService.roleSetup(userId, roleId);
+    return ResponseUtil.success();
+  }
 }

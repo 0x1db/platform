@@ -12,6 +12,7 @@ code/
 common/src/main/resources/
 common/src/test/
 core/src/main/resources/
+generator/src/main/resources/
 core/src/test/
 generator/src/test/
 web/src/test/

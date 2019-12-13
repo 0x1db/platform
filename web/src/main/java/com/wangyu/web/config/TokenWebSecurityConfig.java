@@ -4,6 +4,7 @@ import com.wangyu.web.config.filter.JwtAuthenticationFilter;
 import com.wangyu.web.config.filter.JwtAuthorizationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -26,6 +27,12 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class TokenWebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+  /**
+   * 忽略权限判断的url
+   */
+  @Value("${author.ignoreUrls}")
+  private String[] ignoreUrls;
 
   /**
    * UserDetailsService的实现类太多，这里设置一下要注入的实现类
@@ -52,7 +59,7 @@ public class TokenWebSecurityConfig extends WebSecurityConfigurerAdapter {
     http.cors().and().csrf().disable()
         .authorizeRequests()
         // 测试用资源，需要验证了的用户才能访问
-        .antMatchers("/test/**").permitAll()
+        .antMatchers(ignoreUrls).permitAll()
         // 其他都放行了
         .anyRequest().authenticated()
         .and()

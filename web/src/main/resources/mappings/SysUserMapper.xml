@@ -238,4 +238,9 @@
         FROM sys_user
     WHERE base_user_id = #{baseUserId,jdbcType=BIGINT}
     </select>
+
+    <!--插件用户角色信息-->
+    <insert id="roleSetup">
+        INSERT INTO sys_user_roles (user_id,role_id) VALUES (#{roleId,jdbcType=BIGINT},#{userId,jdbcType=BIGINT})
+    </insert>
 </mapper>

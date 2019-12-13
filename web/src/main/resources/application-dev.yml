@@ -32,6 +32,10 @@ logging:
 server:
   port: 8888
 
+# 忽略权限判断的URL,暂时包括注册
+author:
+  ignoreUrls: /sys_user/*,/role/*
+
 #文件上传
 upload:
   #头像

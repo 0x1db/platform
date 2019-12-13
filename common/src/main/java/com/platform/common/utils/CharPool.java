@@ -1,10 +1,10 @@
 package com.platform.common.utils;
 
 /**
- * 字符池
+ * 文件上传工具类
  *
- * @author zhangQ
- * @create date: 2014-11-18
+ * @author wangyu
+ * @date 2019/11/19 22:54
  */
 public class CharPool {
 

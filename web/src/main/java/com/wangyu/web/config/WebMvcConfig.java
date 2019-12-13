@@ -6,7 +6,7 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
- * 磁盘映射配置
+ * webmvc配置
  *
  * @author wangyu
  * @date 2019/11/20 0:42
@@ -21,7 +21,9 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-
+      /*
+       * 磁盘映射配置
+       */
         if (!registry.hasMappingForPattern("/static/**")) {
             String property = System.getProperty("os.name");
             if (property.startsWith("Win")) {

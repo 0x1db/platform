@@ -44,4 +44,12 @@ public interface SysUserService extends BaseService<SysUser> {
    * @return SysUser
    */
   SysUser findByBaseUserInfoId(Long baseUserId);
+
+  /**
+   * 用户角色设置
+   *
+   * @param userId
+   * @param roleId
+   */
+  void roleSetup(Long userId, Long roleId);
 }

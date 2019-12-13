@@ -5,19 +5,18 @@ import com.github.pagehelper.PageInfo;
 import com.platform.common.enums.UserTypeEnum;
 import com.platform.core.entity.ResponseCode;
 import com.platform.core.exception.ParameterInvalidException;
+import com.platform.core.exception.UserVerificationException;
 import com.platform.core.service.impl.BaseServiceImpl;
 import com.wangyu.web.dao.SysUserMapper;
 import com.wangyu.web.domain.BaseUserInfo;
+import com.wangyu.web.domain.Role;
 import com.wangyu.web.domain.SysUser;
 import com.wangyu.web.dto.SysUserDTO;
 import com.wangyu.web.service.BaseUserInfoService;
+import com.wangyu.web.service.RoleService;
 import com.wangyu.web.service.SysUserService;
-
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
-
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -46,6 +45,8 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser> implements SysU
   private BaseUserInfoService userInfoService;
   @Autowired
   private BCryptPasswordEncoder bCryptPasswordEncoder;
+  @Autowired
+  private RoleService roleService;
 
   @Override
   public int insert(SysUserDTO sysUserDTO) {
@@ -104,5 +105,29 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser> implements SysU
           "baseInfoId and id is not be null");
     }
     return sysUserMapper.findByBaseUserInfoId(baseUserId);
+  }
+
+  @Override
+  public void roleSetup(Long userId, Long roleId) {
+    //校验参数
+    if (userId == null || roleId == null) {
+      throw new ParameterInvalidException(ResponseCode.PARAM_IS_BLANK,
+          "parameter is not be null");
+    }
+
+    //查询校验用户
+    SysUser sysUser = sysUserMapper.get(userId);
+    if (sysUser == null) {
+      throw new UserVerificationException(ResponseCode.USER_NOT_EXIST, "user is not exists");
+    }
+
+    //校验角色
+    Role role = roleService.get(roleId);
+    if (role == null) {
+      throw new UserVerificationException(ResponseCode.USER_NOT_ROLES, "role is not exists");
+    }
+
+    //设置角色
+    sysUserMapper.roleSetup(userId, roleId);
   }
 }
