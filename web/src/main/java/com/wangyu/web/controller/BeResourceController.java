@@ -3,8 +3,8 @@ package com.wangyu.web.controller;
 import com.platform.core.entity.ResponseModel;
 import com.platform.core.entity.ResponseUtil;
 import com.platform.core.web.controller.BaseController;
-import com.wangyu.web.domain.Role;
-import com.wangyu.web.service.RoleService;
+import com.wangyu.web.domain.Resource;
+import com.wangyu.web.service.ResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,27 +13,33 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * 系统角色信息控制器
+ * 资源权限控制器
  *
- * @Author wangyu
- * @Date 2019-12-13 11:55
+ * @author wangyu
+ * @date 2019/12/14 13:36
  */
 @RestController
-@RequestMapping("/role")
-public class RoleController extends BaseController {
+@RequestMapping("/resource")
+public class BeResourceController extends BaseController {
 
   @Autowired
-  private RoleService roleService;
+  private ResourceService resourceService;
 
+  /**
+   * 新增资源
+   */
   @PostMapping("/")
-  public ResponseModel addRole(@RequestBody Role role) {
-    roleService.insert(role);
+  public ResponseModel addResource(@RequestBody Resource resource) {
+    resourceService.insert(resource);
     return ResponseUtil.success();
   }
 
+  /**
+   * 修改资源
+   */
   @PatchMapping("/")
-  public ResponseModel updateRole() {
-    System.out.println("123456");
+  public ResponseModel updateResource(@RequestBody Resource resource) {
+    resourceService.update(resource);
     return ResponseUtil.success();
   }
 }

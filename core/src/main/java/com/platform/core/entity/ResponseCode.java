@@ -46,7 +46,8 @@ public enum ResponseCode {
 
   USER_HAS_EXISTED("2005", "用户已存在"),
 
-  USER_NOT_ROLES("2006", "用户角色信息异常");
+  USER_NOT_ROLES("2006", "用户角色信息异常"),
+  USER_FORBIDDEN_ACCESS("2007", "用户角色信息异常");
 
   private String code;
   private String desc;

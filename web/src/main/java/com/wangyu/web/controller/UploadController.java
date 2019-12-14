@@ -24,22 +24,22 @@ import java.io.IOException;
 @RequestMapping("/upload")
 public class UploadController extends BaseController {
 
-    @Value("${upload.headImg.win_location}")
-    private String winLocation;
+  @Value("${upload.headImg.win_location}")
+  private String winLocation;
 
-    /**
-     * 头像上传
-     */
-    @PostMapping("/headImg")
-    public ResponseModel uploadHeadImg(MultipartFile file) {
-        try {
-            FileInputStream inputStream = (FileInputStream) file.getInputStream();
-            String name = file.getOriginalFilename();
-          String filePath = FileUploadUtils.uploadImg(inputStream, winLocation, name);
-            return ResponseUtil.success(filePath);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return ResponseUtil.error(ResponseCode.PARAM_IS_BLANK, e.getMessage());
-        }
+  /**
+   * 头像上传
+   */
+  @PostMapping("/headImg")
+  public ResponseModel uploadHeadImg(MultipartFile file) {
+    try {
+      FileInputStream inputStream = (FileInputStream) file.getInputStream();
+      String name = file.getOriginalFilename();
+      String filePath = FileUploadUtils.uploadImg(inputStream, winLocation, name);
+      return ResponseUtil.success(filePath);
+    } catch (IOException e) {
+      e.printStackTrace();
+      return ResponseUtil.error(ResponseCode.PARAM_IS_BLANK, e.getMessage());
     }
+  }
 }

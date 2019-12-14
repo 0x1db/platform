@@ -13,6 +13,7 @@ import org.springframework.security.access.intercept.AbstractSecurityInterceptor
 import org.springframework.security.access.intercept.InterceptorStatusToken;
 import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
+import org.springframework.stereotype.Service;
 
 /**
  * 权限管理拦截器，监控用户行为
@@ -20,6 +21,7 @@ import org.springframework.security.web.access.intercept.FilterInvocationSecurit
  * @Author wangyu
  * @Date 2019-12-13 15:21
  */
+@Service("myFilterSecurityInterceptor")
 public class MyFilterSecurityInterceptor extends AbstractSecurityInterceptor implements Filter {
 
   @Autowired

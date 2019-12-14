@@ -21,6 +21,7 @@ import org.springframework.security.access.SecurityConfig;
 import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.stereotype.Service;
 
 /**
  * 权限资源管理器 为权限决断器提供支持
@@ -28,6 +29,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
  * @Author wangyu
  * @Date 2019-12-13 15:28
  */
+@Service("mySecurityMetadataSource")
 public class MySecurityMetadataSource implements FilterInvocationSecurityMetadataSource {
 
   @Autowired
@@ -74,8 +76,6 @@ public class MySecurityMetadataSource implements FilterInvocationSecurityMetadat
    */
   @Override
   public Collection<ConfigAttribute> getAttributes(Object o) throws IllegalArgumentException {
-    loadResourceDefine();
-
     FilterInvocation filterInvocation = (FilterInvocation) o;
     String url = filterInvocation.getHttpRequest().getRequestURI();
     HttpServletRequest request = filterInvocation.getHttpRequest();
@@ -131,7 +131,7 @@ public class MySecurityMetadataSource implements FilterInvocationSecurityMetadat
         List<Role> roles = roleService.findByResourceId(resource.getId());
         if (roles != null && !roles.isEmpty()) {
           for (Role role : roles) {
-            SecurityConfig securityConfig = new SecurityConfig(role.getName());
+            SecurityConfig securityConfig = new SecurityConfig(role.getFlag());
             configs.add(securityConfig);
           }
         }

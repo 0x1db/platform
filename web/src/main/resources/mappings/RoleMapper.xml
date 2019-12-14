@@ -2,147 +2,147 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wangyu.web.dao.RoleMapper">
-    <resultMap id="role_result" type="Role">
-        <result property="id" column="id" jdbcType="BIGINT"/>
-        <result property="name" column="name" jdbcType="VARCHAR"/>
-        <result property="flag" column="flag" jdbcType="VARCHAR"/>
-        <result property="description" column="description" jdbcType="VARCHAR"/>
-    </resultMap>
+  <resultMap id="role_result" type="Role">
+    <result property="id" column="id" jdbcType="BIGINT"/>
+    <result property="name" column="name" jdbcType="VARCHAR"/>
+    <result property="flag" column="flag" jdbcType="VARCHAR"/>
+    <result property="description" column="description" jdbcType="VARCHAR"/>
+  </resultMap>
 
-    <sql id="role_column">
-        sys_role.id,
+  <sql id="role_column">
+    sys_role.id,
         sys_role.name,
         sys_role.flag,
         sys_role.description
-    </sql>
+  </sql>
 
-    <sql id="role_query_param">
-        <trim prefix="WHERE" prefixOverrides="AND|OR">
-            <if test="id!=null">
-                AND sys_role.id = #{id,jdbcType=BIGINT}
-            </if>
-            <if test="ids!=null">
-                AND sys_role.id IN
-                <foreach collection="ids" item="id" open="(" close=")" separator=",">
-                    #{id,jdbcType=BIGINT}
-                </foreach>
-            </if>
-            <if test="name!=null and ''!=name">
-                AND sys_role.name = #{name,jdbcType=VARCHAR}
-            </if>
-            <if test="flag!=null and ''!=flag">
-                AND sys_role.flag = #{flag,jdbcType=VARCHAR}
-            </if>
-            <if test="description!=null and ''!=description">
-                AND sys_role.description = #{description,jdbcType=VARCHAR}
-            </if>
-        </trim>
-    </sql>
-
-    <!-- 根据编号查询 -->
-    <select id="get" resultType="Role">
-        SELECT
-        <include refid="role_column"/>
-        FROM sys_role
-        WHERE sys_role.id = #{id,jdbcType=BIGINT}
-    </select>
-
-    <!-- 插入-->
-    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO sys_role
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="name!=null and ''!=name">
-                name,
-            </if>
-            <if test="flag!=null and ''!=flag">
-                flag,
-            </if>
-            <if test="description!=null and ''!=description">
-                description,
-            </if>
-        </trim>
-        <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="name!=null and ''!=name">
-                #{name,jdbcType=VARCHAR},
-            </if>
-            <if test="flag!=null and ''!=flag">
-                #{flag,jdbcType=VARCHAR},
-            </if>
-            <if test="description!=null and ''!=description">
-                #{description,jdbcType=VARCHAR},
-            </if>
-        </trim>
-    </insert>
-
-    <!-- 修改 -->
-    <update id="update">
-        UPDATE sys_role
-        <trim prefix="SET" suffixOverrides=",">
-            <if test="name!=null and ''!=name">
-                sys_role.name = #{name,jdbcType=VARCHAR},
-            </if>
-            <if test="flag!=null and ''!=flag">
-                sys_role.flag = #{flag,jdbcType=VARCHAR},
-            </if>
-            <if test="description!=null and ''!=description">
-                sys_role.description = #{description,jdbcType=VARCHAR},
-            </if>
-        </trim>
-        WHERE sys_role.id = #{id,jdbcType=BIGINT}
-    </update>
-
-    <!-- 删除-->
-    <delete id="delete">
-        DELETE
-        FROM sys_role
-        WHERE id = #{id,jdbcType=BIGINT}
-    </delete>
-
-    <!-- 批量删除-->
-    <delete id="batchDelete">
-        DELETE FROM sys_role
-        WHERE id IN
-        <foreach collection="array" item="id" open="(" close=")" separator=",">
-            #{id,jdbcType=BIGINT}
+  <sql id="role_query_param">
+    <trim prefix="WHERE" prefixOverrides="AND|OR">
+      <if test="id!=null">
+        AND sys_role.id = #{id,jdbcType=BIGINT}
+      </if>
+      <if test="ids!=null">
+        AND sys_role.id IN
+        <foreach collection="ids" item="id" open="(" close=")" separator=",">
+          #{id,jdbcType=BIGINT}
         </foreach>
-    </delete>
+      </if>
+      <if test="name!=null and ''!=name">
+        AND sys_role.name = #{name,jdbcType=VARCHAR}
+      </if>
+      <if test="flag!=null and ''!=flag">
+        AND sys_role.flag = #{flag,jdbcType=VARCHAR}
+      </if>
+      <if test="description!=null and ''!=description">
+        AND sys_role.description = #{description,jdbcType=VARCHAR}
+      </if>
+    </trim>
+  </sql>
 
-    <!-- 查询列表-->
-    <select id="findList" resultType="Role" parameterType="java.util.HashMap">
-        SELECT
-        <include refid="role_column"/>
-        FROM sys_role
-        <include refid="role_query_param"/>
-    </select>
+  <!-- 根据编号查询 -->
+  <select id="get" resultType="Role">
+    SELECT
+    <include refid="role_column"/>
+    FROM sys_role
+    WHERE sys_role.id = #{id,jdbcType=BIGINT}
+  </select>
+
+  <!-- 插入-->
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+    INSERT INTO sys_role
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="name!=null and ''!=name">
+        name,
+      </if>
+      <if test="flag!=null and ''!=flag">
+        flag,
+      </if>
+      <if test="description!=null and ''!=description">
+        description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="name!=null and ''!=name">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="flag!=null and ''!=flag">
+        #{flag,jdbcType=VARCHAR},
+      </if>
+      <if test="description!=null and ''!=description">
+        #{description,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <!-- 修改 -->
+  <update id="update">
+    UPDATE sys_role
+    <trim prefix="SET" suffixOverrides=",">
+      <if test="name!=null and ''!=name">
+        sys_role.name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="flag!=null and ''!=flag">
+        sys_role.flag = #{flag,jdbcType=VARCHAR},
+      </if>
+      <if test="description!=null and ''!=description">
+        sys_role.description = #{description,jdbcType=VARCHAR},
+      </if>
+    </trim>
+    WHERE sys_role.id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <!-- 删除-->
+  <delete id="delete">
+    DELETE
+    FROM sys_role
+    WHERE id = #{id,jdbcType=BIGINT}
+  </delete>
+
+  <!-- 批量删除-->
+  <delete id="batchDelete">
+    DELETE FROM sys_role
+    WHERE id IN
+    <foreach collection="array" item="id" open="(" close=")" separator=",">
+      #{id,jdbcType=BIGINT}
+    </foreach>
+  </delete>
+
+  <!-- 查询列表-->
+  <select id="findList" resultType="Role" parameterType="java.util.HashMap">
+    SELECT
+    <include refid="role_column"/>
+    FROM sys_role
+    <include refid="role_query_param"/>
+  </select>
 
 
-    <!-- 根据给定的ids查询列表-->
-    <select id="findByIds" resultType="Role">
-        SELECT
-        <include refid="role_column"/>
-        FROM sys_role
-        WHERE id IN
-        <foreach collection="array" item="id" open="(" close=")" separator=",">
-            #{id,jdbcType=BIGINT}
-        </foreach>
-    </select>
+  <!-- 根据给定的ids查询列表-->
+  <select id="findByIds" resultType="Role">
+    SELECT
+    <include refid="role_column"/>
+    FROM sys_role
+    WHERE id IN
+    <foreach collection="array" item="id" open="(" close=")" separator=",">
+      #{id,jdbcType=BIGINT}
+    </foreach>
+  </select>
 
-    <!-- 查询单个实例-->
-    <select id="findOne" resultType="Role" parameterType="java.util.HashMap">
-        SELECT
-        <include refid="role_column"/>
-        FROM sys_role
-        <include refid="role_query_param"/>
-    </select>
+  <!-- 查询单个实例-->
+  <select id="findOne" resultType="Role" parameterType="java.util.HashMap">
+    SELECT
+    <include refid="role_column"/>
+    FROM sys_role
+    <include refid="role_query_param"/>
+  </select>
 
-    <!-- 统计个数-->
-    <select id="countNums" resultType="long" parameterType="java.util.HashMap">
-        SELECT count(1)
-        FROM sys_role
-        <include refid="role_query_param"/>
-    </select>
+  <!-- 统计个数-->
+  <select id="countNums" resultType="long" parameterType="java.util.HashMap">
+    SELECT count(1)
+    FROM sys_role
+    <include refid="role_query_param"/>
+  </select>
 
-    <!--根据UserID查询-->
+  <!--根据UserID查询-->
   <select id="findByUserId" resultType="Role" parameterType="java.lang.Long">
     SELECT
     <include refid="role_column"/>
@@ -151,8 +151,12 @@
     WHERE syr.user_id = #{userId,jdbcType=BIGINT}
   </select>
 
-    <!--根据ResourceId查询-->
-    <select id="findByResourceId" resultType="Role" parameterType="java.lang.Long">
-
-    </select>
+  <!--根据ResourceId查询-->
+  <select id="findByResourceId" resultType="Role" parameterType="java.lang.Long">
+    SELECT
+    <include refid="role_column"/>
+    FROM sys_role
+    LEFT JOIN sys_role_resource srr ON srr.role_id = sys_role.id
+    WHERE srr.resource_id = #{resourceId,jdbcType=BIGINT}
+  </select>
 </mapper>

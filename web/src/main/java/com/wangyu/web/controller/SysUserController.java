@@ -8,6 +8,7 @@ import com.platform.core.web.controller.BaseController;
 import com.wangyu.web.domain.SysUser;
 import com.wangyu.web.dto.SysUserDTO;
 import com.wangyu.web.service.SysUserService;
+import java.security.Principal;
 import java.util.Map;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,10 +51,10 @@ public class SysUserController extends BaseController {
    * 条件分页查询
    */
   @GetMapping("/paging")
-  @PreAuthorize("hasRole('ADMIN')")
   public ResponseModel getPages(@RequestParam("pageSize") Integer pageSize,
       @RequestParam("pageNum") Integer pageNum,
-      String baseUserId) {
+      String baseUserId, Principal principal) {
+    LOG.info(principal.getName());
     Map<String, Object> params = Maps.newHashMap();
     params.put("pageNum", pageNum);
     params.put("pageSize", pageSize);
@@ -75,7 +76,6 @@ public class SysUserController extends BaseController {
    * 根据ID查询后台用户详情
    */
   @GetMapping("/{id}")
-  @PreAuthorize("hasAuthority('MANAGER')")
   public ResponseModel findById(@PathVariable("id") String id) {
     SysUser sysUser = sysUserService.get(id);
     SysUserDTO result = new SysUserDTO().convertFor(sysUser);

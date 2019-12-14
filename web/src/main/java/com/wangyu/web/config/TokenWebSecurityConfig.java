@@ -2,6 +2,7 @@ package com.wangyu.web.config;
 
 import com.wangyu.web.config.filter.JwtAuthenticationFilter;
 import com.wangyu.web.config.filter.JwtAuthorizationFilter;
+import com.wangyu.web.config.handlers.MyAccessDeniedHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -58,16 +59,19 @@ public class TokenWebSecurityConfig extends WebSecurityConfigurerAdapter {
   protected void configure(HttpSecurity http) throws Exception {
     http.cors().and().csrf().disable()
         .authorizeRequests()
-        // 测试用资源，需要验证了的用户才能访问
+        //不需要验证的资源放行
         .antMatchers(ignoreUrls).permitAll()
-        // 其他都放行了
+        // 其他都需要验证
         .anyRequest().authenticated()
         .and()
         .addFilter(new JwtAuthenticationFilter(authenticationManager()))
         .addFilter(new JwtAuthorizationFilter(authenticationManager()))
         // 不需要session
         .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-        .and().exceptionHandling().authenticationEntryPoint(new UnauthorizedEntryPoint());
+        //登录认证失败异常处理
+        .and().exceptionHandling().authenticationEntryPoint(new UnauthorizedEntryPoint())
+        //url访问权限校验失败异常处理
+        .and().exceptionHandling().accessDeniedHandler(new MyAccessDeniedHandler());
   }
 
   @Bean

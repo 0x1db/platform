@@ -1,6 +1,7 @@
-#dev开发分支
+####dev开发分支
 spring:
   profiles:
+    #启动的节点名称
     active: dev
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
@@ -32,9 +33,9 @@ logging:
 server:
   port: 8888
 
-# 忽略权限判断的URL,暂时包括注册
+# 忽略权限判断的URL,包括(后台用户注册)
 author:
-  ignoreUrls: /sys_user/*,/role/*
+  ignoreUrls: /sys_user/register
 
 #文件上传
 upload:

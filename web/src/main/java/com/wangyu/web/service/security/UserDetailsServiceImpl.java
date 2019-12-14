@@ -1,7 +1,6 @@
 package com.wangyu.web.service.security;
 
 import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
 import com.platform.core.entity.ResponseCode;
 import com.platform.core.exception.UserVerificationException;
 import com.wangyu.web.domain.BaseUserInfo;
@@ -13,7 +12,6 @@ import com.wangyu.web.service.RoleService;
 import com.wangyu.web.service.SysUserService;
 import java.util.List;
 import java.util.Set;
-import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,6 +20,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 /**
+ * 用户登录处理
+ *
  * @author wangyu
  * @date 2019/11/24 16:22
  */

@@ -8,7 +8,7 @@
     <result property="flag" column="flag" jdbcType="VARCHAR"/>
     <result property="url" column="url" jdbcType="VARCHAR"/>
     <result property="type" column="type" jdbcType="VARCHAR"/>
-    <result property="icon" column="icon" jdbcType="VARCHAR"/>
+    <result property="method" column="method" jdbcType="VARCHAR"/>
     <result property="parentId" column="parent_id" jdbcType="BIGINT"/>
     <result property="description" column="description" jdbcType="VARCHAR"/>
   </resultMap>
@@ -19,7 +19,7 @@
             sys_resource.flag,
             sys_resource.url,
             sys_resource.type,
-            sys_resource.icon,
+            sys_resource.method,
             sys_resource.parent_id,
             sys_resource.description
         </sql>
@@ -47,8 +47,8 @@
       <if test="type!=null and ''!=type">
         AND sys_resource.type = #{type}
       </if>
-      <if test="icon!=null and ''!=icon">
-        AND sys_resource.icon = #{icon}
+      <if test="method!=null and ''!=method">
+        AND sys_resource.method = #{method}
       </if>
       <if test="parentId!=null">
         AND sys_resource.parent_id = #{parentId}
@@ -83,8 +83,8 @@
       <if test="type!=null and ''!=type">
         type,
       </if>
-      <if test="icon!=null and ''!=icon">
-        icon,
+      <if test="method!=null and ''!=method">
+        method,
       </if>
       <if test="parentId!=null">
         parent_id,
@@ -106,8 +106,8 @@
       <if test="type!=null and ''!=type">
         #{type},
       </if>
-      <if test="icon!=null and ''!=icon">
-        #{icon},
+      <if test="method!=null and ''!=method">
+        #{method},
       </if>
       <if test="parentId!=null">
         #{parentId},
@@ -134,8 +134,8 @@
       <if test="type!=null and ''!=type">
         sys_resource.type = #{type},
       </if>
-      <if test="icon!=null and ''!=icon">
-        sys_resource.icon = #{icon},
+      <if test="method!=null and ''!=method">
+        sys_resource.method = #{method},
       </if>
       <if test="parentId!=null">
         sys_resource.parent_id = #{parentId},
